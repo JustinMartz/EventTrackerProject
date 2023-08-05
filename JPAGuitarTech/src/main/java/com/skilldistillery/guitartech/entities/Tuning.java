@@ -21,6 +21,9 @@ public class Tuning {
 	@OneToMany(mappedBy = "tuning")
 	private List<Guitar> guitars;
 	
+	@OneToMany(mappedBy = "tuning")
+	private List<Setup> setups;
+	
 	public Tuning() {
 		
 	}
@@ -47,6 +50,14 @@ public class Tuning {
 
 	public void setGuitars(List<Guitar> guitars) {
 		this.guitars = guitars;
+	}
+
+	public List<Setup> getSetups() {
+		return setups;
+	}
+
+	public void setSetups(List<Setup> setups) {
+		this.setups = setups;
 	}
 
 	@Override

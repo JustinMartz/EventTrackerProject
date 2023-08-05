@@ -2,6 +2,7 @@ package com.skilldistillery.guitartech.entities;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -60,6 +61,13 @@ class GuitarTest {
 		assertNotNull(guitar);
 		assertNotNull(guitar.getTuning());
 		assertEquals("Eb Standard", guitar.getTuning().getName());
+	}
+	
+	@Test
+	void test_Guitar_to_List_of_Setup_relational_mapping() {
+		assertNotNull(guitar);
+		assertNotNull(guitar.getSetups());
+		assertTrue(guitar.getSetups().size() > 0);
 	}
 
 }

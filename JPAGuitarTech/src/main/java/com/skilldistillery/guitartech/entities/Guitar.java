@@ -1,5 +1,6 @@
 package com.skilldistillery.guitartech.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Guitar {
@@ -42,6 +44,9 @@ public class Guitar {
 	@ManyToOne
 	@JoinColumn(name = "tuning_id")
 	private Tuning tuning;
+	
+	@OneToMany(mappedBy = "guitar")
+	private List<Setup> setups;
 	
 	public Guitar() {
 		
@@ -133,6 +138,14 @@ public class Guitar {
 
 	public void setTuning(Tuning tuning) {
 		this.tuning = tuning;
+	}
+
+	public List<Setup> getSetups() {
+		return setups;
+	}
+
+	public void setSetups(List<Setup> setups) {
+		this.setups = setups;
 	}
 
 	@Override

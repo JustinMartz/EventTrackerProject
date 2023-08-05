@@ -14,11 +14,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class TuningTest {
+class SetupTest {
 
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private Tuning tuning;
+	private Setup setup;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,34 +33,38 @@ class TuningTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		tuning = em.find(Tuning.class, 2);
+		setup = em.find(Setup.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		tuning = null;
+		setup = null;
 	}
 
 	@Test
-	void test_Tuning_entity_mapping() {
-		assertNotNull(tuning);
-		assertEquals("Eb Standard", tuning.getName());
+	void test_Setup_entity_mapping() {
+		assertNotNull(setup);
+		assertEquals("10-46", setup.getStringGauge());
+		assertEquals("D'Addario NYXL", setup.getStringBrand());
+		assertEquals(2023, setup.getDateOfSetup().getYear());
+		assertEquals(3, setup.getActionTreble());
+		assertEquals(4, setup.getActionBass());
+		assertEquals("A little light, maybe try 10-48/52 next time", setup.getNotes());
 	}
 	
 	@Test
-	void test_Tuning_to_List_of_Guitar_relational_mapping() {
-		assertNotNull(tuning);
-		assertNotNull(tuning.getGuitars());
-		assertTrue(tuning.getGuitars().size() > 0);
-		
+	void test_Setup_to__Guitar_relational_mapping() {
+		assertNotNull(setup);
+		assertNotNull(setup.getGuitar());
+		assertEquals("Les Paul Custom", setup.getGuitar().getModel());
 	}
 	
 	@Test
-	void test_Tuning_to_List_of_Setup_relational_mapping() {
-		assertNotNull(tuning);
-		assertNotNull(tuning.getSetups());
-		assertTrue(tuning.getSetups().size() > 0);
+	void test_Setup_to_Tuning_relational_mapping() {
+		assertNotNull(setup);
+		assertNotNull(setup.getTuning());
+		assertEquals("Eb Standard", setup.getTuning().getName());
 	}
 
 }
