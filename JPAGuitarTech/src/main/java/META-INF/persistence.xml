@@ -9,6 +9,8 @@
 
 		<!-- begin entities -->
 		<class>com.skilldistillery.guitartech.entities.Guitar</class>
+		<class>com.skilldistillery.guitartech.entities.Tuning</class>
+		<class>com.skilldistillery.guitartech.entities.Setup</class>
 
 		<!-- end entities -->
 		<properties>
