@@ -12,8 +12,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties({"setups"})
 public class Guitar {
+	
+	// FIXME consider tuning as part of setup, not guitar
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

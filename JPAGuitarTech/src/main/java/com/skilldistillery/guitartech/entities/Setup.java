@@ -11,10 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 @Entity
-@JsonIgnoreProperties({"guitar", "tuning"})
 public class Setup {
 
 	@Id
@@ -126,7 +123,7 @@ public class Setup {
 	public String toString() {
 		return "Setup [id=" + id + ", stringGauge=" + stringGauge + ", stringBrand=" + stringBrand + ", dateOfSetup="
 				+ dateOfSetup + ", actionTreble=" + actionTreble + ", actionBass=" + actionBass + ", notes=" + notes
-				+ "]";
+				+ ", guitar=" + guitar + ", tuning=" + tuning + "]";
 	}
 
 	@Override
