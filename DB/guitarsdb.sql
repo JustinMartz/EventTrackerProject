@@ -131,6 +131,13 @@ USE `guitarsdb`;
 INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (1, '10-46', 'D\'Addario NYXL', '2023-05-05', 3, 4, 'A little light, maybe try 10-48/52 next time', 1, 2);
 INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (2, '11-50', 'D\'Addario XL', '2023-06-02', 3, 4, 'A little light, maybe try 11-52 next time', 2, 3);
 INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (3, '10-46', 'Gibson', '2023-05-12', 3, 4, 'Factory setup, good string tension and action', 2, 1);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (4, '09-42', 'D\'Addario NYXL', '2023-04-22', 3, 4, 'Feels great', 6, 1);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (5, '09-42', 'D\'Addario XL', '2023-04-23', 3, 4, 'Feels good', 3, 1);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (6, '10-52', 'D\'Addario XL', '2023-07-05', 3, 4, 'Feels great, maybe lower the action a bit', 4, 2);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (7, '10-46', 'D\'Addario XT', '2022-01-03', 3, 4, 'Feels good', 5, 3);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (8, '09-46', 'D\'Addario XT', '2022-06-21', 3, 4, NULL, 5, 2);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (9, '11-49', 'D\'Addario XT', '2021-12-15', 3, 4, 'Little loose and floppy, could try those with D Standard', 1, 4);
+INSERT INTO `setup` (`id`, `string_gauge`, `string_brand`, `date_of_setup`, `action_treble`, `action_bass`, `notes`, `guitar_id`, `tuning_id`) VALUES (10, '09-46', 'D\'Addario XT', '2023-06-21', 3, 4, NULL, 1, 1);
 
 COMMIT;
 
