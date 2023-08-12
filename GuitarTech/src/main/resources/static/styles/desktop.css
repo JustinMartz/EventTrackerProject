@@ -1,0 +1,282 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+h1 {
+	margin-top: 1rem;
+	font-family: 'IM Fell English', serif;
+	font-size: 1.75rem;
+	font-weight: bold;
+	width: fit-content;
+	text-align: center;
+}
+
+h2 {
+	font-size: 1.25rem;
+	font-family: 'IM Fell English', serif;
+	margin-left: 1rem;
+	line-height: 2rem;
+}
+
+html {
+	height: 100vh;
+	
+}
+
+body {
+	background-color: #f5f5f5;
+	margin-left: 5vw;
+	margin-right: 5vw;
+	border: 1px solid red;
+	height: 100%;
+	
+}
+
+header {
+	height: 15vh;
+	width: 100;
+}
+
+header img {
+	display: block;
+	margin: auto;
+}
+
+header img:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+main {
+	height: 80vh;
+	border: 1px solid blue;
+}
+
+.content-container {
+	display: flex;
+}
+
+#guitars-container {
+	height: 80vh;
+	width: 50%;
+	border: 1px solid orange;
+	overflow: scroll;
+}
+
+#setups-container {
+	width: 50%;
+	border: 1px solid purple;
+}
+
+.guitars-container-header {
+	display: flex;
+	height: 10%;
+	width: 100%;
+	border: 2px solid pink;
+	position: sticky;
+  	top: 0;
+}
+
+.guitars-container-header > img {
+	max-height: 100%;
+	width: fit-content;
+	
+}
+
+.guitars-container-header > img:hover {
+	cursor: pointer;
+	animation: shake 0.5s;
+	filter: drop-shadow(5px 5px 4px grey);
+}
+
+.guitar-filter-by {
+	border: 1px solid green;
+	display: block;
+	width: fit-content;
+	height: 100%;
+}
+
+
+.guitars-container-header .search-container {
+  float: right;
+  height: 100%;
+  width: 100%;
+}
+
+.search-container input[type=text] {
+	margin-left: 1rem;
+	border: none;
+	font-size: 1rem;
+	padding: .5rem;
+	height: 100%;
+	width: fit-content;
+  
+}
+
+.guitars-container-header .search-container button {
+	float: right;
+	background: #ddd;
+	margin: auto;
+	border: none;
+	cursor: pointer;
+}
+
+.guitars-container-header .search-container img {
+	height: 2rem;
+}
+
+ .search-container button:hover {
+  background: #ccc;
+}
+
+ul {
+  list-style: none; 
+  padding: 0;
+  margin: 0;
+  background: #1bc2a2;
+  width: fit-content;
+}
+ul li {
+  display: block;
+  position: relative;
+  float: left;
+  background: #1bc2a2;
+}
+/* This hides the dropdowns */
+li ul {
+  display: none;
+}
+
+ul li a {
+  display: block;
+  padding: 1em;
+  text-decoration: none;
+  white-space: nowrap;
+  color: #fff;
+}
+
+ul li a:hover {
+  background: #2c3e50;
+}
+
+/* Display the dropdown */
+li:hover > ul {
+  display: block; 
+  position: absolute;
+}
+/* Remove float from dropdown lists */
+li:hover li {
+    float: none;
+}
+
+li:hover a {
+  background: #1bc2a2;
+}
+
+li:hover li a:hover {
+  background: #2c3e50;
+}
+
+.main-navigation li ul li {
+  border-top: 0;
+}
+/* Displays second level dropdowns to the right of the first level dropdown */
+ul ul ul {
+  left: 100%;
+  top: 0; 
+}
+
+
+/* Simple clearfix */
+
+ul:before,
+ul:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+ul:after {
+    clear: both;
+}
+
+.guitar-container {
+	height: 90%;
+	display: grid;
+  	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  	grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+	gap: 20px 20px;
+	grid-auto-flow: row;
+	grid-template-areas:
+    "image image image text text text"
+    "image image image text text text"
+    "image image image text text text"
+    "image image image text text text"
+    "image image image icons icons icons"
+    "image image image . . .";
+}
+
+
+.image { 
+	grid-area: image;
+}
+
+.image > img {
+   object-fit: contain;
+  width: 100%;
+  max-height: 100%;
+}
+
+.text {
+	grid-area: text;
+	height: 100%;
+	width: 100%;
+	border: 1px solid aqua;
+}
+
+.icons { 
+	grid-area: icons;
+	border: 1px solid orange;
+}
+
+.icons img {
+	width: 2rem;
+	margin-right: 1rem;
+}
+
+.setups-container-header {
+	height: 10%;
+	width: 100%;
+	border: 1px solid pink;
+	position: sticky;
+  	top: 0;
+}
+
+.setups-container-header img {
+	height: 100%;
+	display: block;
+	margin: auto;
+}
+
+.setups-container-header img:hover {
+	cursor: pointer;
+	animation: shake 0.5s;
+	filter: drop-shadow(5px 5px 4px grey);
+}

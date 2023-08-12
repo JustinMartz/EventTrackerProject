@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="styles/desktop.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="js/script.js"></script>
+</head>
+<body>
+	<header><img src="images/guitartech.png" /></header>
+	<main>
+		<div class="content-container">
+			<div id="guitars-container">
+				<div class="guitars-container-header">
+					<img id="addNewGuitar" src="images/add-new-guitar.png" />
+					<div class="guitar-filter-by">
+						<ul class="main-navigation">
+  							<li><a href="#">Filter by</a>
+    						<ul>
+      							<li><a href="#">Tuning</a>
+	        						<ul>
+							          <li><a href="#">E Standard</a></li>
+							          <li><a href="#">Eb Standard</a></li>
+							          <li><a href="#">D Standard</a></li>
+							          <li><a href="#">C# Standard</a></li>
+	        						</ul>
+      							</li>
+      							<li><a href="#">Bridge</a>
+        							<ul>
+							          <li><a href="#">Tune-O-Matic</a></li>
+							          <li><a href="#">Floyd Rose</a></li>
+							          <li><a href="#">3-Saddle</a></li>
+        							</ul>
+      							</li>
+    						</ul>
+  							</li>
+						</ul>
+  						
+					</div>
+						
+						<div class="search-container">
+    						<form action="/action_page.php"> <!-- FIXME -->
+      							<input type="text" placeholder="Search by color..." name="search">
+      							<button type="submit"><img src="images/magnifying-icon.svg" /></button>
+    						</form>
+  						</div>
+				</div>
+				<!--
+				<div class="guitar-container">
+				  <div class="image"><img src="images/lpc.jpg" /></div>
+				  <div class="text"></div>
+				  <div class="icons"></div>
+				</div>
+				-->
+			</div>
+			<div id="setups-container">
+				<div class="setups-container-header"><img id="addNewSetup" src="images/add-new-setup.png" /></div>	
+			</div>
+		</div>
+	</main>
+</body>
+</html>
