@@ -133,7 +133,7 @@ let editGuitarCB = function(e) {
 		// gCon = document.createElement('div');  // create a new one
 		// gCon.className = 'guitar-container';
 		
-		// change icons
+			// change icons
 		gCon.lastElementChild.remove();
 		let editIconsDiv = document.createElement('div');
 		editIconsDiv.className = 'icons';
@@ -141,24 +141,27 @@ let editGuitarCB = function(e) {
 			saveIcon.src = 'images/save.png';
 			saveIcon.id = 'saveEditedGuitar';
 			saveIcon.title = 'Update guitar info';
-			// FIXME saveIcon.addEventListener('click', updateGuitarCB);
+			saveIcon.addEventListener('click', updateGuitarCB);
 			editIconsDiv.appendChild(saveIcon);
 			
 		let cancelIcon = document.createElement('img');
 			cancelIcon.src = 'images/cancel.png';
 			cancelIcon.id = 'cancelEditingGuitar';
 			cancelIcon.title = 'Cancel';
-			// FIXME cancelIcon.addEventListener('click', cancelGuitarEditCB);
+			cancelIcon.addEventListener('click', cancelGuitarEditCB);
 			editIconsDiv.appendChild(cancelIcon);
 		
-		gCon.appendChild(editIconsDiv);
+		
+		
 		
 		
 		let gText = document.createElement('div');
 		gText.className = 'text';
+		gCon.appendChild(gText);
 		
 		// construct the form
 		let gForm = document.createElement('form');
+		gForm.id = gCon.id + '_form';
 		
 		let makeText = document.createElement('h2');
 		makeText.textContent = 'Make: ';
@@ -168,6 +171,7 @@ let editGuitarCB = function(e) {
 		let makeInput = document.createElement('input');
 		makeInput.type = 'text';
 		makeInput.value = currentGuitar.make;
+		makeInput.id = 'editMake';
 		
 		gForm.appendChild(makeText);
 		gForm.appendChild(makeInput); // attach make input to the form
@@ -183,6 +187,7 @@ let editGuitarCB = function(e) {
 		let modelInput = document.createElement('input');
 		modelInput.type = 'text';
 		modelInput.value = currentGuitar.model;
+		modelInput.id = 'editModel';
 		
 		gForm.appendChild(modelText);
 		gForm.appendChild(modelInput); // attach model input to the form
@@ -197,7 +202,7 @@ let editGuitarCB = function(e) {
 		gForm.appendChild(yearText);
 		
 		let yearInput = document.createElement('select');
-		yearInput.id = 'year-select';
+		yearInput.id = 'editYear';
 		yearInput.name = 'year';
 		gForm.appendChild(yearInput);
 		for (let i = 1900; i < 2024; i++) {
@@ -222,6 +227,7 @@ let editGuitarCB = function(e) {
 		let colorInput = document.createElement('input');
 		colorInput.type = 'text';
 		colorInput.value = currentGuitar.color;
+		colorInput.id = 'editColor';
 		
 		gForm.appendChild(colorText);
 		gForm.appendChild(colorInput);
@@ -236,16 +242,12 @@ let editGuitarCB = function(e) {
 		let scaleInput = document.createElement('input');
 		scaleInput.type = 'text';
 		scaleInput.value = currentGuitar.scaleLength;
+		scaleInput.id = 'editScale';
 		
 		gForm.appendChild(scaleText);
 		gForm.appendChild(scaleInput);
 		let scaleBr = document.createElement('br');
 		gForm.appendChild(scaleBr);
-		
-		
-		gText.appendChild(gForm); // attach form text area;
-		gCon.appendChild(gText);  // attach text area to guitar-container
-		// document.getElementById('guitars-container').appendChild(gCon); // attach guitar-container to guitars-container
 		
 		let fretsText = document.createElement('h2');
 		fretsText.textContent = 'Number of frets: ';
@@ -254,8 +256,8 @@ let editGuitarCB = function(e) {
 		gForm.appendChild(fretsText);
 		
 		let fretsInput = document.createElement('select');
-		fretsInput.id = 'frets-select';
 		fretsInput.name = 'frets';
+		fretsInput.id = 'editFrets';
 		gForm.appendChild(fretsInput);
 		for (let i = 19; i < 28; i++) {
 			let fretsOption = document.createElement('option');
@@ -324,7 +326,7 @@ let editGuitarCB = function(e) {
 		bridgeText.style.display = 'inline';
 		
 		let bridgeInput = document.createElement('select');
-		bridgeInput.id = 'bridge-select';
+		bridgeInput.id = 'editBridge';
 		bridgeInput.name = 'bridge';
 		gForm.appendChild(bridgeInput);
 		
@@ -364,7 +366,7 @@ let editGuitarCB = function(e) {
 		gForm.appendChild(tuningText);
 		
 		let tuningInput = document.createElement('select');
-		tuningInput.id = 'tuning-select';
+		tuningInput.id = 'editTuning';
 		tuningInput.name = 'tuning';
 		gForm.appendChild(tuningInput);
 		
@@ -400,14 +402,14 @@ let editGuitarCB = function(e) {
 			}
 			tuningInput.appendChild(tuningOptionCsharp);
 			
-			
+		gText.appendChild(gForm);
+		gCon.appendChild(gText);
+		gCon.appendChild(editIconsDiv);
+		
+	
 		
 
-	/*
-	document.querySelectorAll('.guitar-container').forEach(function(a){
-		a.remove()
-	})
-	*/
+
 	console.log('in editGuitarCB()');
 }
 
@@ -422,3 +424,110 @@ let deleteGuitarCB = function(e) {
 	console.log('in deleteGuitarCB()');
 }
 
+let cancelGuitarEditCB = function(e) {
+	e.preventDefault();
+	let guitarId = e.target.parentElement.parentElement.id;
+	let GIDArray = guitarId.split("_");
+	guitarId = GIDArray[1];
+	refreshGuitar(guitarId);
+}
+
+function refreshGuitar(guitarId) {
+	let g = guitars[guitarId - 1];
+	
+	let gCon = document.getElementById('guitar_' + guitarId); // find current guitar-container to edit
+	console.log(gCon.id);
+	gCon.firstElementChild.nextElementSibling.remove();		// remove text area
+	gCon.firstElementChild.nextElementSibling.remove();		// remove icons area
+	
+			// make guitar-text div
+			let gtxt = document.createElement('div');
+			gtxt.className = 'text';
+			let gh1 = document.createElement('h1');
+			gh1.textContent = g.make + ' ' + g.model;
+			gtxt.appendChild(gh1);
+					
+			// make li for year
+			let yearH2 = document.createElement('h2');
+			yearH2.textContent = g.year;
+			gtxt.appendChild(yearH2);
+			// make li for color
+			let colorH2 = document.createElement('h2'); // FIXME addEventListener searchByColor
+			colorH2.textContent = g.color;
+			gtxt.appendChild(colorH2);
+			// make li for scale length
+			let scaleH2 = document.createElement('h2');
+			scaleH2.textContent = g.scaleLength + '" scale length';
+			gtxt.appendChild(scaleH2);
+			// make li for frets
+			let fretsH2 = document.createElement('h2');
+			fretsH2.textContent = g.numberOfFrets + ' frets';
+			gtxt.appendChild(fretsH2);
+			// make li for hasCase
+			let caseH2 = document.createElement('h2');
+			caseH2.textContent = g.hasCase === true ? 'Has a case' : 'Does not have case';
+			gtxt.appendChild(caseH2);
+			// make li for bridge
+			let bridgeH2 = document.createElement('h2');
+			bridgeH2.textContent = g.bridge + ' bridge';
+			gtxt.appendChild(bridgeH2);
+			// make li for tuning
+			let tuningH2 = document.createElement('h2');
+			tuningH2.textContent = 'Currently tuned to ' + g.tuning.name;
+			gtxt.appendChild(tuningH2);
+			// make h2 for setup
+			let setupH2 = document.createElement('h2'); // FIXME addEventListener displaySetupById
+			setupH2.textContent = 'Last setup: ' + g.setup;
+			gtxt.appendChild(setupH2);
+			
+			// make icons div
+			let gIcons = document.createElement('div');
+			gIcons.className = 'icons';
+			
+			let gEdit = document.createElement('img');
+			gEdit.src = 'images/edit.png';
+			gEdit.id = 'editGuitarIcon';
+			gEdit.title = 'Edit this guitar';
+			gEdit.addEventListener('click', editGuitarCB);
+			gIcons.appendChild(gEdit);
+			
+			let gRem = document.createElement('img');
+			gRem.src = 'images/delete.png';
+			gRem.id = 'deleteGuitarIcon';
+			gRem.title = 'Delete this guitar';
+			gRem.addEventListener('click', deleteGuitarCB);
+			gIcons.appendChild(gRem);
+			
+			gCon.appendChild(gtxt);    // attach text to guitar-container
+			gCon.appendChild(gIcons);
+	
+}
+
+let updateGuitarCB = function(e) {
+	e.preventDefault();
+	let guitarId = e.target.parentElement.parentElement.id;
+	let formId = guitarId + '_form';
+	let form = document.getElementById(formId);
+	console.log('getting form');
+	console.log(form);
+	let make = form.editMake.value;
+	let model = form.editModel.value;
+	let year = form.editYear.value;
+	let color = form.editColor.value;
+	let scaleLength = form.editScale.value;
+	let numberOfFrets = form.editFrets.value;
+	let hasCase = form.querySelector('input[name = hasCase]:checked').value;
+	let bridge = form.editBridge.value;
+	let tuning = form.editTuning.value;
+	console.log(make);
+	console.log(model);
+	console.log(year);
+	console.log(color);
+	console.log(scaleLength);
+	console.log(numberOfFrets);
+	console.log(hasCase);
+	console.log(bridge);
+	console.log(tuning);
+	let GIDArray = guitarId.split("_");
+	guitarId = GIDArray[1];
+}
