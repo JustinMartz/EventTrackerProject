@@ -33,11 +33,15 @@ function loadGuitars() {
 function displayGuitars(guitars) {
 	if (guitars && Array.isArray(guitars)) {
 		let ultimateGcon = document.getElementById('guitars-container');
+		let gCounter = 0;
 		for (let g of guitars) {
 			// make guitar-container div
 			let gcon = document.createElement('div');
 			gcon.className = 'guitar-container';
-			gcon.id = 'guitar_' + g.id;
+			gcon.id = 'guitar_' + gCounter;
+			gCounter++;
+			
+			
 			
 			// make image div
 			let gimgdiv = document.createElement('div');
@@ -104,6 +108,12 @@ function displayGuitars(guitars) {
 			gRem.addEventListener('click', deleteGuitarCB);
 			gIcons.appendChild(gRem);
 			
+			let idInput = document.createElement('input');
+			idInput.type = 'hidden';
+			idInput.id = gcon.id + 'dbId';
+			idInput.value = g.id;
+			gIcons.appendChild(idInput);
+			
 			gimgdiv.appendChild(gimg);  // attach img element to image div
 			gcon.appendChild(gimgdiv);  // attach image div to guitar-container
 			gcon.appendChild(gtxt);    // attach text to guitar-container
@@ -124,7 +134,7 @@ let editGuitarCB = function(e) {
 		guitarId = GIDArray[1];
 		
 		
-		let currentGuitar = guitars[guitarId - 1];
+		let currentGuitar = guitars[guitarId];
 		console.log(currentGuitar);
 		
 		let gCon = document.getElementById('guitar_' + guitarId); // find current guitar-container to edit
@@ -151,10 +161,6 @@ let editGuitarCB = function(e) {
 			cancelIcon.addEventListener('click', cancelGuitarEditCB);
 			editIconsDiv.appendChild(cancelIcon);
 		
-		
-		
-		
-		
 		let gText = document.createElement('div');
 		gText.className = 'text';
 		gCon.appendChild(gText);
@@ -162,6 +168,12 @@ let editGuitarCB = function(e) {
 		// construct the form
 		let gForm = document.createElement('form');
 		gForm.id = gCon.id + '_form';
+		
+		let idInput = document.createElement('input');
+		idInput.type = 'hidden';
+		idInput.id = 'guitar_' + guitarId + 'dbId';
+		idInput.value = currentGuitar.id;
+		gForm.appendChild(idInput);
 		
 		let makeText = document.createElement('h2');
 		makeText.textContent = 'Make: ';
@@ -372,7 +384,7 @@ let editGuitarCB = function(e) {
 		
 			let tuningOptionE = document.createElement('option');
 			tuningOptionE.textContent = 'E Standard';
-			tuningOptionE.value = 'E Standard';
+			tuningOptionE.value = 1;
 			if ('E Standard' === currentGuitar.tuning.name) {
 				tuningOptionE.selected = true;
 			}
@@ -380,7 +392,7 @@ let editGuitarCB = function(e) {
 			
 			let tuningOptionEb = document.createElement('option');
 			tuningOptionEb.textContent = 'Eb Standard';
-			tuningOptionEb.value = 'Eb Standard';
+			tuningOptionEb.value = 2;
 			if ('Eb Standard' === currentGuitar.tuning.name) {
 				tuningOptionEb.selected = true;
 			}
@@ -388,7 +400,7 @@ let editGuitarCB = function(e) {
 			
 			let tuningOptionD = document.createElement('option');
 			tuningOptionD.textContent = 'D Standard';
-			tuningOptionD.value = 'D Standard';
+			tuningOptionD.value = 3;
 			if ('D Standard' === currentGuitar.tuning.name) {
 				tuningOptionD.selected = true;
 			}
@@ -396,7 +408,7 @@ let editGuitarCB = function(e) {
 			
 			let tuningOptionCsharp = document.createElement('option');
 			tuningOptionCsharp.textContent = 'C# Standard';
-			tuningOptionCsharp.value = 'C# Standard';
+			tuningOptionCsharp.value = 4;
 			if ('C# Standard' === currentGuitar.tuning.name) {
 				tuningOptionCsharp.selected = true;
 			}
@@ -406,21 +418,25 @@ let editGuitarCB = function(e) {
 		gCon.appendChild(gText);
 		gCon.appendChild(editIconsDiv);
 		
-	
-		
-
-
 	console.log('in editGuitarCB()');
 }
 
 let deleteGuitarCB = function(e) {
-		e.preventDefault();
+	e.preventDefault();
+	//get guitarId by grabbing guitar.id from page
+	console.log('in deleteGuitarCB()');
+	let guitarId = e.target.parentElement.parentElement.id;
+	console.log('guitarId: ' + guitarId);
+	let realId = document.getElementById(guitarId + 'dbId').value;
+	console.log('actual id in db: ' + realId);
+	let GIDArray = guitarId.split("_");
+	guitarId = GIDArray[1];
+	console.log(guitarId);
+	let result = confirm('Are you sure you want to delete the ' + guitars[guitarId].make + ' ' + guitars[guitarId].model + '?');
+	if (result === true) {
+		sendDelete(realId);
+	}
 
-	/*
-	document.querySelectorAll('.guitar-container').forEach(function(a){
-		a.remove()
-	})
-	*/
 	console.log('in deleteGuitarCB()');
 }
 
@@ -433,7 +449,7 @@ let cancelGuitarEditCB = function(e) {
 }
 
 function refreshGuitar(guitarId) {
-	let g = guitars[guitarId - 1];
+	let g = guitars[guitarId];
 	
 	let gCon = document.getElementById('guitar_' + guitarId); // find current guitar-container to edit
 	console.log(gCon.id);
@@ -465,7 +481,7 @@ function refreshGuitar(guitarId) {
 			gtxt.appendChild(fretsH2);
 			// make li for hasCase
 			let caseH2 = document.createElement('h2');
-			caseH2.textContent = g.hasCase === true ? 'Has a case' : 'Does not have case';
+			caseH2.textContent = g.hasCase === true ? 'Has a case' : 'Does not have a case';
 			gtxt.appendChild(caseH2);
 			// make li for bridge
 			let bridgeH2 = document.createElement('h2');
@@ -508,17 +524,23 @@ let updateGuitarCB = function(e) {
 	let guitarId = e.target.parentElement.parentElement.id;
 	let formId = guitarId + '_form';
 	let form = document.getElementById(formId);
+	let GIDArray = guitarId.split("_");
+	guitarId = GIDArray[1];
 	console.log('getting form');
 	console.log(form);
+	let id = document.getElementById('guitar_' + guitarId + 'dbId');
+	console.log(id);
 	let make = form.editMake.value;
 	let model = form.editModel.value;
 	let year = form.editYear.value;
 	let color = form.editColor.value;
 	let scaleLength = form.editScale.value;
 	let numberOfFrets = form.editFrets.value;
-	let hasCase = form.querySelector('input[name = hasCase]:checked').value;
+	let hasCase = form.querySelector('input[name = hasCase]:checked').value === 'true' ? true : false;
+	let imageUrl = guitars[guitarId].imageUrl;
 	let bridge = form.editBridge.value;
 	let tuning = form.editTuning.value;
+	
 	console.log(make);
 	console.log(model);
 	console.log(year);
@@ -528,6 +550,67 @@ let updateGuitarCB = function(e) {
 	console.log(hasCase);
 	console.log(bridge);
 	console.log(tuning);
-	let GIDArray = guitarId.split("_");
-	guitarId = GIDArray[1];
+	// FIXME verify data
+	let guitar = {
+		id: parseInt(id.value),
+		make: make,
+		model: model,
+		year: parseInt(year),
+		color: color,
+		scaleLength: parseFloat(scaleLength),
+		numberOfFrets: parseInt(numberOfFrets),
+		hasCase: hasCase,
+		imageUrl: imageUrl,
+		bridge: bridge,
+		tuning: {id: tuning}
+	}
+	sendUpdate(guitar, guitarId);
+}
+
+function sendUpdate(guitar, guitarId) {
+	console.log(guitar);
+	let xhr = new XMLHttpRequest();
+	xhr.open('PUT', 'api/guitars/' + guitar.id, true);
+
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+  		if (xhr.readyState === 4 ) {
+    		if ( xhr.status == 200 || xhr.status == 201 ) { // Ok or Created
+      			let data = JSON.parse(xhr.responseText);
+      			guitars[guitarId] = data;
+      			refreshGuitar(guitarId);
+    		} else {
+      			console.error("POST request failed.");
+      			console.error(xhr.status + ': ' + xhr.responseText);
+      			alert("Update failed!");
+      			// FIXME repopulate guitar-container with original guitar
+      			displayGuitars();
+    		}
+  		}
+	};
+
+	let guitarJson = JSON.stringify(guitar);
+
+	xhr.send(guitarJson);
+}
+
+function sendDelete(guitarId) {
+	let xhr = new XMLHttpRequest();
+	xhr.open('DELETE', 'api/guitars/' + guitarId, true);
+	xhr.send(null);	
+
+
+	xhr.onreadystatechange = function() {
+  		if (xhr.readyState === 4 ) {
+			  console.log('xhr.status: ' + xhr.status);
+    		if ( xhr.status === 204) {
+				console.log('we are in the true block');
+				location.reload();      			
+    		} else {
+      			alert('Deletion failed!');
+    		}
+  		}
+	};
+
 }

@@ -34,19 +34,13 @@ body {
 
 header {
 	height: 15vh;
-	width: 100;
+	width: 100%;
+	
 }
 
 header img {
 	display: block;
 	margin: auto;
-}
-
-header img:hover {
-  /* Start the shake animation and make the animation last for 0.5 seconds */
-  animation: shake 0.5s;
-
-  /* When the animation is finished, start again */
 }
 
 @keyframes shake {
@@ -103,7 +97,6 @@ main {
 }
 
 .guitar-filter-by {
-	border: 1px solid green;
 	display: block;
 	width: fit-content;
 	height: 100%;
@@ -267,7 +260,6 @@ ul:after {
 .setups-container-header {
 	height: 10%;
 	width: 100%;
-	border: 1px solid pink;
 	position: sticky;
   	top: 0;
 }
