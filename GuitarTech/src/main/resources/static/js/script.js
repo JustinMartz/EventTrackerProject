@@ -11,6 +11,12 @@ function init() {
 	
 	document.getElementById('addNewGuitar').addEventListener('click', displayAddGuitarCB);
 	document.getElementById('colorSearch').addEventListener('click', colorSearchCB);
+	document.getElementById('tuningE').addEventListener('click', filterTuningCB);
+	document.getElementById('tuningEb').addEventListener('click', filterTuningCB);
+	document.getElementById('tuningD').addEventListener('click', filterTuningCB);
+	document.getElementById('tuningCsharp').addEventListener('click', filterTuningCB);
+	document.getElementById('allGuitars').addEventListener('click', displayAllGuitarsCB);
+
 	loadGuitars();
 	
 }
@@ -1043,4 +1049,56 @@ let colorSearchCB = function(e) {
 	// let keywordJson = JSON.stringify(guitar);
 
 	xhr.send(null);
+}
+
+let filterTuningCB = function(e) {
+	console.log('in filterTuning');
+	console.log(e.target.id);
+	let tuning;
+	switch(e.target.id) {
+		case 'tuningE':
+			tuning = 1;
+			break;
+		case 'tuningEb':
+			tuning = 2;
+			break;
+		case 'tuningD':
+			tuning = 3;
+			break;
+		case 'tuningCsharp':
+			tuning = 4;
+			break;
+	}
+	console.log(tuning);
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/guitars/tuning/' + tuning, true);
+
+	// xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+  		if (xhr.readyState === 4 ) {
+    		if ( xhr.status == 200) {
+      			guitars = null;
+      			guitars = JSON.parse(xhr.responseText);
+      			searchForm.reset();
+				displayGuitars(guitars);
+      			console.log('*** getting new guitars back');
+      			console.log(guitars);
+    		} else {
+      			console.error("GET request failed.");
+      			console.error(xhr.status + ': ' + xhr.responseText);
+      			alert("Search failed!");
+      			// FIXME repopulate guitar-container with original guitar
+      			displayGuitars();
+    		}
+  		}
+	};
+	
+	xhr.send(null);
+}
+
+let displayAllGuitarsCB = function(e) {
+	console.log('in displayAllGuitarsCB');
+	loadGuitars();
+	displayGuitars(guitars);
 }
