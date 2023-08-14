@@ -3,12 +3,14 @@ var guitars = [];
 
 window.addEventListener('load', function(e) {
 	console.log('page LOADED');
-	
 	init();
 });
 
 function init() {
 	console.log('in init()');
+	
+	document.getElementById('addNewGuitar').addEventListener('click', addGuitarCB);
+	
 	loadGuitars();
 	
 }
@@ -308,7 +310,6 @@ let editGuitarCB = function(e) {
 		let caseYesInputLabel = document.createElement('label');
 		caseYesInputLabel.for = caseYesInput.id;
 		caseYesInputLabel.textContent = 'Yes';
-		console.log('label.for = ' + caseYesInputLabel.for);
 		
 		caseInput.appendChild(caseYesInput);
 		caseInput.appendChild(caseYesInputLabel);
@@ -325,7 +326,6 @@ let editGuitarCB = function(e) {
 		let caseNoInputLabel = document.createElement('label');
 		caseNoInputLabel.for = caseNoInput.id;
 		caseNoInputLabel.textContent = 'No';
-		console.log('label.for = ' + caseNoInputLabel.for);
 		
 		caseInput.appendChild(caseNoInput);
 		caseInput.appendChild(caseNoInputLabel);
@@ -613,4 +613,296 @@ function sendDelete(guitarId) {
   		}
 	};
 
+}
+
+let addGuitarCB = function(e) {
+	console.log('in addGuitarCB()');
+	let ultimateGcon = document.getElementById('guitars-container');
+	// get number from id of last div
+	let divs = document.getElementsByClassName('guitar-container');
+	console.log(divs);
+	let nums = [];
+	let i = 0;
+	for (let gc of divs) {
+		nums[i] = parseInt(gc.id.charAt(gc.id.length - 1));
+		i++;
+	}
+	for (let gc of divs) { gc.style.display = 'none'; }
+	nums.sort();
+	console.log(nums);
+	let lastId = nums[nums.length - 1];
+	let newId = lastId + 1;
+	console.log(lastId);
+	// remove all guitar-container divs
+	// create new guitar-container div with form data and append it to ultimategcon
+	let newCon = document.createElement('div');
+	newCon.className = 'guitar-container';
+	newCon.id = 'guitar_' + newId;
+	
+	// make image div
+	let gImgDiv = document.createElement('div');
+	gImgDiv.className = 'image';
+	// make img element
+	let gImg = document.createElement('img');
+	gImg.src = 'images/question-mark.gif';
+	gImgDiv.appendChild(gImg);
+	
+	// add icons
+	let newIconsDiv = document.createElement('div');
+	newIconsDiv.className = 'icons';
+	
+	let saveIcon = document.createElement('img');
+	saveIcon.src = 'images/save.png';
+	saveIcon.id = 'addGuitar';
+	saveIcon.title = 'Add this guitar';
+	// FIXME saveIcon.addEventListener('click', sendAddCB);
+	newIconsDiv.appendChild(saveIcon);
+			
+	let cancelIcon = document.createElement('img');
+	cancelIcon.src = 'images/cancel.png';
+	cancelIcon.id = 'cancelAddingGuitar';
+	cancelIcon.title = 'Cancel';
+	cancelIcon.addEventListener('click', cancelGuitarEditCB);
+	newIconsDiv.appendChild(cancelIcon);
+	
+	// add form
+	let gText = document.createElement('div');
+	gText.className = 'text';
+	newCon.appendChild(gText);
+		
+	// construct the form
+	let gForm = document.createElement('form');
+	gForm.id = newCon.id + '_form';
+		
+	let makeText = document.createElement('h2');
+	makeText.textContent = 'Make: ';
+	makeText.style.margin = 0;
+	makeText.style.display = 'inline';
+		
+	let makeInput = document.createElement('input');
+	makeInput.type = 'text';
+	makeInput.id = 'newMake';
+		
+	gForm.appendChild(makeText);
+	gForm.appendChild(makeInput); // attach make input to the form
+		
+	let makeBr = document.createElement('br');
+	gForm.appendChild(makeBr);      // line break before next input
+	
+	let modelText = document.createElement('h2');
+	modelText.textContent = 'Model: ';
+	modelText.style.margin = 0;
+	modelText.style.display = 'inline';
+		
+	let modelInput = document.createElement('input');
+	modelInput.type = 'text';
+	modelInput.id = 'newModel';
+		
+	gForm.appendChild(modelText);
+	gForm.appendChild(modelInput); // attach model input to the form
+		
+	let modelBr = document.createElement('br');
+	gForm.appendChild(modelBr);      // line break before next input
+	
+	let yearText = document.createElement('h2');
+	yearText.textContent = 'Year: ';
+	yearText.style.margin = 0;
+	yearText.style.display = 'inline';
+	gForm.appendChild(yearText);
+		
+	let yearInput = document.createElement('select');
+	yearInput.id = 'newYear';
+	yearInput.name = 'year';
+	gForm.appendChild(yearInput);
+	for (let i = 1900; i < 2024; i++) {
+		let yearOption = document.createElement('option');
+		yearOption.textContent = i;
+		yearOption.value = i;
+		if (i === 2023) {
+			yearOption.selected = true;
+		}
+		yearInput.appendChild(yearOption);
+	}
+		
+	let yearBr = document.createElement('br');
+	gForm.appendChild(yearBr);      // line break before next input
+	
+	let colorText = document.createElement('h2');
+	colorText.textContent = 'Color: ';
+	colorText.style.margin = 0;
+	colorText.style.display = 'inline';
+		
+	let colorInput = document.createElement('input');
+	colorInput.type = 'text';
+	colorInput.id = 'newColor';
+		
+	gForm.appendChild(colorText);
+	gForm.appendChild(colorInput);
+	
+	let colorBr = document.createElement('br');
+	gForm.appendChild(colorBr);
+	
+	let scaleText = document.createElement('h2');
+	scaleText.textContent = 'Scale length: ';
+	scaleText.style.margin = 0;
+	scaleText.style.display = 'inline';
+	
+	let scaleInput = document.createElement('input');
+	scaleInput.type = 'text';
+	scaleInput.id = 'newScale';
+		
+	gForm.appendChild(scaleText);
+	gForm.appendChild(scaleInput);
+	
+	let scaleBr = document.createElement('br');
+	gForm.appendChild(scaleBr);
+	
+	let fretsText = document.createElement('h2');
+	fretsText.textContent = 'Number of frets: ';
+	fretsText.style.margin = 0;
+	fretsText.style.display = 'inline';
+	gForm.appendChild(fretsText);
+		
+	let fretsInput = document.createElement('select');
+	fretsInput.name = 'frets';
+	fretsInput.id = 'newFrets';
+	gForm.appendChild(fretsInput);
+	for (let i = 19; i < 28; i++) {
+		let fretsOption = document.createElement('option');
+		fretsOption.textContent = i;
+		fretsOption.value = i;
+		if (i === 22) {
+			fretsOption.selected = true;
+		}
+		fretsInput.appendChild(fretsOption);
+	}
+		
+	gForm.appendChild(fretsText);
+	gForm.appendChild(fretsInput);
+	
+	let fretsBr = document.createElement('br');
+	gForm.appendChild(fretsBr);
+	
+	let caseText = document.createElement('h2');
+	caseText.textContent = 'Has a case: ';
+	caseText.style.margin = 0;
+	caseText.style.display = 'inline';
+	gForm.appendChild(caseText);
+		
+	let caseInput = document.createElement('fieldset');
+	gForm.appendChild(caseInput);
+		
+	let caseYesInput = document.createElement('input');
+	caseYesInput.type = 'radio';
+	caseYesInput.id = 'case-yes';
+	caseYesInput.name = 'hasCase';
+	caseYesInput.value = true;
+		
+	let caseYesInputLabel = document.createElement('label');
+	caseYesInputLabel.for = caseYesInput.id;
+	caseYesInputLabel.textContent = 'Yes';
+		
+	caseInput.appendChild(caseYesInput);
+	caseInput.appendChild(caseYesInputLabel);
+		
+	let caseNoInput = document.createElement('input');
+	caseNoInput.type = 'radio';
+	caseNoInput.id = 'case-no';
+	caseNoInput.name = 'hasCase';
+	caseNoInput.value = false;
+		
+	let caseNoInputLabel = document.createElement('label');
+	caseNoInputLabel.for = caseNoInput.id;
+	caseNoInputLabel.textContent = 'No';
+		
+	caseInput.appendChild(caseNoInput);
+	caseInput.appendChild(caseNoInputLabel);
+	
+	let caseBr = document.createElement('br');
+	gForm.appendChild(caseBr);
+	
+	let bridgeText = document.createElement('h2');
+	bridgeText.textContent = 'Bridge type: ';
+	bridgeText.style.margin = 0;
+	bridgeText.style.display = 'inline';
+		
+	let bridgeInput = document.createElement('select');
+	bridgeInput.id = 'newBridge';
+	bridgeInput.name = 'bridge';
+	gForm.appendChild(bridgeInput);
+		
+	let bridgeOptionTOM = document.createElement('option');
+	bridgeOptionTOM.textContent = 'Tune-O-Matic';
+	bridgeOptionTOM.value = 'Tune-O-Matic';
+	bridgeOptionTOM.selected = true;
+	bridgeInput.appendChild(bridgeOptionTOM);
+			
+	let bridgeOptionFloyd = document.createElement('option');
+	bridgeOptionFloyd.textContent = 'Floyd Rose';
+	bridgeOptionFloyd.value = 'Floyd Rose';
+	bridgeInput.appendChild(bridgeOptionFloyd);
+			
+	let bridgeOption3 = document.createElement('option');
+	bridgeOption3.textContent = '3-Saddle';
+	bridgeOption3.value = '3-Saddle';
+	bridgeInput.appendChild(bridgeOption3);
+		
+	gForm.appendChild(bridgeText);
+	gForm.appendChild(bridgeInput);
+	
+	let bridgeBr = document.createElement('br');
+	gForm.appendChild(bridgeBr);
+	
+	let tuningText = document.createElement('h2');
+	tuningText.textContent = 'Current tuning: ';
+	tuningText.style.margin = 0;
+	tuningText.style.display = 'inline';
+	gForm.appendChild(tuningText);
+		
+	let tuningInput = document.createElement('select');
+	tuningInput.id = 'newTuning';
+	tuningInput.name = 'tuning';
+	gForm.appendChild(tuningInput);
+		
+	let tuningOptionE = document.createElement('option');
+	tuningOptionE.textContent = 'E Standard';
+	tuningOptionE.value = 1;
+	tuningOptionE.selected = true;
+	tuningInput.appendChild(tuningOptionE);
+			
+	let tuningOptionEb = document.createElement('option');
+	tuningOptionEb.textContent = 'Eb Standard';
+	tuningOptionEb.value = 2;
+	tuningInput.appendChild(tuningOptionEb);
+			
+	let tuningOptionD = document.createElement('option');
+	tuningOptionD.textContent = 'D Standard';
+	tuningOptionD.value = 3;
+	tuningInput.appendChild(tuningOptionD);
+			
+	let tuningOptionCsharp = document.createElement('option');
+	tuningOptionCsharp.textContent = 'C# Standard';
+	tuningOptionCsharp.value = 4;
+	tuningInput.appendChild(tuningOptionCsharp);
+	
+	let tuningBr = document.createElement('br');
+	gForm.appendChild(tuningBr);
+	
+	let uploadText = document.createElement('h2');
+	uploadText.textContent = 'Upload: ';
+	uploadText.style.margin = 0;
+	uploadText.style.display = 'inline';
+	gForm.appendChild(uploadText);
+	
+	let uploadInput = document.createElement('input');
+	uploadInput.type = 'file'
+	tuningInput.id = 'newImage';
+	tuningInput.name = 'image';
+	tuningInput.accept = 'image/png, image/jpeg';
+	gForm.appendChild(uploadInput);
+	
+	gText.appendChild(gForm);			// attach form to text div
+	newCon.appendChild(gImgDiv);
+	newCon.appendChild(newIconsDiv); // attach icons div to container
+	ultimateGcon.appendChild(newCon);	// attach text div to container div
 }
