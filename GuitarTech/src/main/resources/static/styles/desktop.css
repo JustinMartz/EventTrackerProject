@@ -66,6 +66,9 @@ main {
 }
 
 #guitars-container {
+	border-left: 2px solid black;
+	border-right: 2px solid black;
+	border-bottom: 2px solid black;
 	height: 80vh;
 	width: 50%;
 	overflow: scroll;
@@ -77,6 +80,8 @@ main {
 
 .guitars-container-header {
 	background-color: white;
+	border-bottom: 2px solid black;
+	border-top: 2px solid black;
 	display: flex;
 	height: 10%;
 	width: 100%;
@@ -136,17 +141,18 @@ main {
 }
 
 ul {
+	height: 100%;
   list-style: none; 
   padding: 0;
   margin: 0;
-  background: #1bc2a2;
+  background: cadetblue;
   width: fit-content;
 }
 ul li {
   display: block;
   position: relative;
   float: left;
-  background: #1bc2a2;
+  background: cadetblue;
 }
 /* This hides the dropdowns */
 li ul {
@@ -154,15 +160,16 @@ li ul {
 }
 
 ul li a {
+  color: black;
   display: block;
   padding: 1em;
   text-decoration: none;
   white-space: nowrap;
-  color: #fff;
+  font-family: 'IM Fell English', serif;
 }
 
 ul li a:hover {
-  background: #2c3e50;
+  background: lightblue;
 }
 
 /* Display the dropdown */
@@ -176,11 +183,11 @@ li:hover li {
 }
 
 li:hover a {
-  background: #1bc2a2;
+  background: lightblue;
 }
 
 li:hover li a:hover {
-  background: #2c3e50;
+  background: cadetblue;
 }
 
 .main-navigation li ul li {
@@ -206,6 +213,7 @@ ul:after {
 }
 
 .guitar-container {
+	background-color: white;
 	height: 90%;
 	display: grid;
   	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -224,6 +232,7 @@ ul:after {
 
 .image { 
 	grid-area: image;
+	background-color: white;
 }
 
 .image > img {
@@ -236,6 +245,7 @@ ul:after {
 	grid-area: text;
 	height: 100%;
 	width: 100%;
+	background-color: white;
 }
 
 .text input {
@@ -244,6 +254,7 @@ ul:after {
 
 .icons { 
 	grid-area: icons;
+	background-color: white;
 }
 
 .icons img {
