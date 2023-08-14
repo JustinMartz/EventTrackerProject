@@ -16,6 +16,9 @@ function init() {
 	document.getElementById('tuningD').addEventListener('click', filterTuningCB);
 	document.getElementById('tuningCsharp').addEventListener('click', filterTuningCB);
 	document.getElementById('allGuitars').addEventListener('click', displayAllGuitarsCB);
+	document.getElementById('bridgeTune').addEventListener('click', filterBridgeCB);
+	document.getElementById('bridgeFloyd').addEventListener('click', filterBridgeCB);
+	document.getElementById('bridge3s').addEventListener('click', filterBridgeCB);
 
 	loadGuitars();
 	
@@ -1101,4 +1104,45 @@ let displayAllGuitarsCB = function(e) {
 	console.log('in displayAllGuitarsCB');
 	loadGuitars();
 	displayGuitars(guitars);
+}
+
+let filterBridgeCB = function(e) {
+	let bridge;
+	switch(e.target.id) {
+		case 'bridgeTune':
+			bridge = 'Tune-O-Matic';
+			break;
+		case 'bridgeFloyd':
+			bridge = 'Floyd%20Rose';
+			break;
+		case 'bridge3s':
+			bridge = '3-Saddle';
+			break;
+	}
+	console.log(bridge);
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/guitars/bridge/' + bridge, true);
+
+	// xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+  		if (xhr.readyState === 4 ) {
+    		if ( xhr.status == 200) {
+      			guitars = null;
+      			guitars = JSON.parse(xhr.responseText);
+      			searchForm.reset();
+				displayGuitars(guitars);
+      			console.log('*** getting new guitars back');
+      			console.log(guitars);
+    		} else {
+      			console.error("GET request failed.");
+      			console.error(xhr.status + ': ' + xhr.responseText);
+      			alert("Search failed!");
+      			// FIXME repopulate guitar-container with original guitar
+      			displayGuitars();
+    		}
+  		}
+	};
+	
+	xhr.send(null);
 }
