@@ -9,7 +9,7 @@ window.addEventListener('load', function(e) {
 function init() {
 	console.log('in init()');
 	
-	document.getElementById('addNewGuitar').addEventListener('click', addGuitarCB);
+	document.getElementById('addNewGuitar').addEventListener('click', displayAddGuitarCB);
 	
 	loadGuitars();
 	
@@ -42,8 +42,6 @@ function displayGuitars(guitars) {
 			gcon.className = 'guitar-container';
 			gcon.id = 'guitar_' + gCounter;
 			gCounter++;
-			
-			
 			
 			// make image div
 			let gimgdiv = document.createElement('div');
@@ -453,8 +451,19 @@ function refreshGuitar(guitarId) {
 	
 	let gCon = document.getElementById('guitar_' + guitarId); // find current guitar-container to edit
 	console.log(gCon.id);
-	gCon.firstElementChild.nextElementSibling.remove();		// remove text area
-	gCon.firstElementChild.nextElementSibling.remove();		// remove icons area
+	gCon.firstElementChild.remove();							// remove image area
+	gCon.firstElementChild.remove();		// remove text area
+	gCon.firstElementChild.remove();		// remove icons area
+	
+	// make image div
+	let gImgDiv = document.createElement('div');
+	gImgDiv.className = 'image';
+	
+	let gImg = document.createElement('img');
+	gImg.src = 'images/' + g.imageUrl;
+	gImgDiv.appendChild(gImg);
+	gCon.appendChild(gImgDiv);
+	
 	
 			// make guitar-text div
 			let gtxt = document.createElement('div');
@@ -488,8 +497,25 @@ function refreshGuitar(guitarId) {
 			bridgeH2.textContent = g.bridge + ' bridge';
 			gtxt.appendChild(bridgeH2);
 			// make li for tuning
+			console.log('*** tuning: ' + g.tuning.id);
+			let tuningName;
+			switch (parseInt(g.tuning.id)) {
+				case 1:
+				tuningName = 'E Standard';
+				break;
+				case 2:
+				tuningName = 'Eb Standard';
+				break;
+				case 3:
+				tuningName = 'D Standard';
+				break;
+				case 4:
+				tuningName = 'C# Standard';
+				break;
+				
+			}
 			let tuningH2 = document.createElement('h2');
-			tuningH2.textContent = 'Currently tuned to ' + g.tuning.name;
+			tuningH2.textContent = 'Currently tuned to ' + tuningName;
 			gtxt.appendChild(tuningH2);
 			// make h2 for setup
 			let setupH2 = document.createElement('h2'); // FIXME addEventListener displaySetupById
@@ -615,7 +641,7 @@ function sendDelete(guitarId) {
 
 }
 
-let addGuitarCB = function(e) {
+let displayAddGuitarCB = function(e) {
 	console.log('in addGuitarCB()');
 	let ultimateGcon = document.getElementById('guitars-container');
 	// get number from id of last div
@@ -627,7 +653,7 @@ let addGuitarCB = function(e) {
 		nums[i] = parseInt(gc.id.charAt(gc.id.length - 1));
 		i++;
 	}
-	for (let gc of divs) { gc.style.display = 'none'; }
+	// for (let gc of divs) { gc.style.display = 'none'; }
 	nums.sort();
 	console.log(nums);
 	let lastId = nums[nums.length - 1];
@@ -646,6 +672,8 @@ let addGuitarCB = function(e) {
 	let gImg = document.createElement('img');
 	gImg.src = 'images/question-mark.gif';
 	gImgDiv.appendChild(gImg);
+	newCon.appendChild(gImgDiv);
+
 	
 	// add icons
 	let newIconsDiv = document.createElement('div');
@@ -655,14 +683,14 @@ let addGuitarCB = function(e) {
 	saveIcon.src = 'images/save.png';
 	saveIcon.id = 'addGuitar';
 	saveIcon.title = 'Add this guitar';
-	// FIXME saveIcon.addEventListener('click', sendAddCB);
+	saveIcon.addEventListener('click', sendAddCB);
 	newIconsDiv.appendChild(saveIcon);
 			
 	let cancelIcon = document.createElement('img');
 	cancelIcon.src = 'images/cancel.png';
 	cancelIcon.id = 'cancelAddingGuitar';
 	cancelIcon.title = 'Cancel';
-	cancelIcon.addEventListener('click', cancelGuitarEditCB);
+	// FIXME cancelIcon.addEventListener('click', cancelGuitarAddCB);
 	newIconsDiv.appendChild(cancelIcon);
 	
 	// add form
@@ -889,20 +917,90 @@ let addGuitarCB = function(e) {
 	gForm.appendChild(tuningBr);
 	
 	let uploadText = document.createElement('h2');
-	uploadText.textContent = 'Upload: ';
+	uploadText.textContent = 'Image file: ';
 	uploadText.style.margin = 0;
 	uploadText.style.display = 'inline';
 	gForm.appendChild(uploadText);
 	
 	let uploadInput = document.createElement('input');
-	uploadInput.type = 'file'
-	tuningInput.id = 'newImage';
-	tuningInput.name = 'image';
-	tuningInput.accept = 'image/png, image/jpeg';
+	uploadInput.type = 'text'
+	uploadInput.id = 'newImage';
+	uploadInput.name = 'image';
 	gForm.appendChild(uploadInput);
 	
 	gText.appendChild(gForm);			// attach form to text div
-	newCon.appendChild(gImgDiv);
 	newCon.appendChild(newIconsDiv); // attach icons div to container
 	ultimateGcon.appendChild(newCon);	// attach text div to container div
+	
+	ultimateGcon.scrollTo({
+		top: ultimateGcon.scrollHeight,
+ 		behavior: 'smooth'
+	});	
+}
+
+let sendAddCB = function(e) {
+	e.preventDefault();
+	let guitarId = e.target.parentElement.parentElement.id;
+	let formId = guitarId + '_form';
+	let form = document.getElementById(formId);
+	let GIDArray = guitarId.split("_");
+	guitarId = GIDArray[1];
+	let make = form.newMake.value;
+	let model = form.newModel.value;
+	let year = form.newYear.value;
+	let color = form.newColor.value;
+	let scaleLength = form.newScale.value;
+	let numberOfFrets = form.newFrets.value;
+	let hasCase = form.querySelector('input[name = hasCase]:checked').value === 'true' ? true : false;
+	let imageUrl = form.newImage.value;
+	let bridge = form.newBridge.value;
+	let tuning = form.newTuning.value;
+	
+	console.log(make);
+	console.log(model);
+	console.log(newTuning);
+	
+	// FIXME verify data
+	let guitar = {
+		make: make,
+		model: model,
+		year: parseInt(year),
+		color: color,
+		scaleLength: parseFloat(scaleLength),
+		numberOfFrets: parseInt(numberOfFrets),
+		hasCase: hasCase,
+		imageUrl: imageUrl,
+		bridge: bridge,
+		tuning: {id: tuning}
+	}
+	
+	sendAdd(guitar, guitarId);
+}
+
+function sendAdd(guitar, guitarId) {
+	console.log(guitar);
+	let xhr = new XMLHttpRequest();
+	xhr.open('POST', 'api/guitars', true);
+
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+  		if (xhr.readyState === 4 ) {
+    		if ( xhr.status == 200 || xhr.status == 201 ) { // Ok or Created
+      			let data = JSON.parse(xhr.responseText);
+      			guitars.push(data);
+      			refreshGuitar(guitarId);
+    		} else {
+      			console.error("POST request failed.");
+      			console.error(xhr.status + ': ' + xhr.responseText);
+      			alert("Create failed!");
+      			// FIXME repopulate guitar-container with original guitar
+      			displayGuitars();
+    		}
+  		}
+	};
+
+	let guitarJson = JSON.stringify(guitar);
+
+	xhr.send(guitarJson);
 }
