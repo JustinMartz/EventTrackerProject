@@ -20,12 +20,10 @@ function loadGuitars() {
 	xhr.open('GET', 'api/guitars');
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState === 4 && xhr.status === 200) {
-			// do stuff
 			guitars = JSON.parse(xhr.responseText);
-			console.log(guitars);
 			displayGuitars(guitars);
 		} else {
-			// display error on page
+			// FIXME display error on page
 		}
 	};
 	
@@ -35,6 +33,12 @@ function loadGuitars() {
 function displayGuitars(guitars) {
 	if (guitars && Array.isArray(guitars)) {
 		let ultimateGcon = document.getElementById('guitars-container');
+		let existing = document.getElementsByClassName('guitar-container');
+			while(existing[0]) {
+			console.log('previous guitar-container divs exist');
+    			existing[0].parentNode.removeChild(existing[0]);
+			}
+		
 		let gCounter = 0;
 		for (let g of guitars) {
 			// make guitar-container div
@@ -1013,27 +1017,30 @@ let colorSearchCB = function(e) {
 	let keyword = e.target.parentElement.parentElement.searchKeyword.value;
 	
 	let xhr = new XMLHttpRequest();
-	xhr.open('GET', 'api/guitars/color/', true);
+	xhr.open('GET', 'api/guitars/color/' + keyword, true);
 
-	xhr.setRequestHeader("Content-type", "application/json");
+	// xhr.setRequestHeader("Content-type", "application/json");
 
 	xhr.onreadystatechange = function() {
   		if (xhr.readyState === 4 ) {
-    		if ( xhr.status == 200 || xhr.status == 201 ) { // Ok or Created
-      			let data = JSON.parse(xhr.responseText);
-      			guitars.push(data);
-      			refreshGuitar(guitarId);
+    		if ( xhr.status == 200) {
+      			guitars = null;
+      			guitars = JSON.parse(xhr.responseText);
+      			searchForm.reset();
+				displayGuitars(guitars);
+      			console.log('*** getting new guitars back');
+      			console.log(guitars);
     		} else {
-      			console.error("POST request failed.");
+      			console.error("GET request failed.");
       			console.error(xhr.status + ': ' + xhr.responseText);
-      			alert("Create failed!");
+      			alert("Search failed!");
       			// FIXME repopulate guitar-container with original guitar
       			displayGuitars();
     		}
   		}
 	};
 
-	let guitarJson = JSON.stringify(guitar);
+	// let keywordJson = JSON.stringify(guitar);
 
-	xhr.send(guitarJson);
+	xhr.send(null);
 }
