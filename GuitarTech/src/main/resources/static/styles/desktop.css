@@ -83,7 +83,7 @@ main {
 	border-bottom: 2px solid black;
 	border-top: 2px solid black;
 	display: flex;
-	height: 10%;
+	height: 8vh;
 	width: 100%;
 	position: sticky;
   	top: 0;
@@ -102,6 +102,8 @@ main {
 }
 
 .guitar-filter-by {
+	margin-left: 1rem;
+	margin-right: 1rem;
 	display: block;
 	width: fit-content;
 	height: 100%;
@@ -109,27 +111,30 @@ main {
 
 
 .guitars-container-header .search-container {
-  float: right;
   height: 100%;
   width: 100%;
+  position: relative;
 }
 
 .search-container input[type=text] {
-	margin-left: 1rem;
 	border: none;
 	font-size: 1rem;
 	padding: .5rem;
-	height: 100%;
 	width: fit-content;
-  
+	position: absolute;
+	top: 0;
+	bottom: 0;
 }
 
 .guitars-container-header .search-container button {
-	float: right;
 	background: #ddd;
-	margin: auto;
 	border: none;
 	cursor: pointer;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0;
+	width: 4rem;
 }
 
 .guitars-container-header .search-container img {
