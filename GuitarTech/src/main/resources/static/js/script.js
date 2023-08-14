@@ -10,7 +10,7 @@ function init() {
 	console.log('in init()');
 	
 	document.getElementById('addNewGuitar').addEventListener('click', displayAddGuitarCB);
-	
+	document.getElementById('colorSearch').addEventListener('click', colorSearchCB);
 	loadGuitars();
 	
 }
@@ -981,6 +981,39 @@ function sendAdd(guitar, guitarId) {
 	console.log(guitar);
 	let xhr = new XMLHttpRequest();
 	xhr.open('POST', 'api/guitars', true);
+
+	xhr.setRequestHeader("Content-type", "application/json");
+
+	xhr.onreadystatechange = function() {
+  		if (xhr.readyState === 4 ) {
+    		if ( xhr.status == 200 || xhr.status == 201 ) { // Ok or Created
+      			let data = JSON.parse(xhr.responseText);
+      			guitars.push(data);
+      			refreshGuitar(guitarId);
+    		} else {
+      			console.error("POST request failed.");
+      			console.error(xhr.status + ': ' + xhr.responseText);
+      			alert("Create failed!");
+      			// FIXME repopulate guitar-container with original guitar
+      			displayGuitars();
+    		}
+  		}
+	};
+
+	let guitarJson = JSON.stringify(guitar);
+
+	xhr.send(guitarJson);
+}
+
+let colorSearchCB = function(e) {
+	e.preventDefault();
+	console.log('in colorSearch');
+	console.log(e.target.parentElement.parentElement.searchKeyword.value);
+	
+	let keyword = e.target.parentElement.parentElement.searchKeyword.value;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open('GET', 'api/guitars/color/', true);
 
 	xhr.setRequestHeader("Content-type", "application/json");
 
