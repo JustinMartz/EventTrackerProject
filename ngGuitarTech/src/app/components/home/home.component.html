@@ -1,5 +1,57 @@
-<h1>GuitarTech</h1>
 
-<ul>
-<li *ngFor="let g of guitarList">{{g.make}} {{g.model}}</li>
-</ul>
+
+<header><img src="assets/images/guitartech.png" /></header>
+<main>
+  <div class="content-container">
+    <div id="guitars-container">
+    <div class="guitars-container-header">
+      <img id="addNewGuitar" src="assets/images/add-new-guitar.png" />
+      <div class="guitar-filter-by">
+        <ul class="main-navigation">
+            <li><a href="#">Filter by</a>
+            <ul>
+            <li><a href="#" id="allGuitars" (click)="reload()">All guitars</a></li>
+                <li><a href="#">Tuning</a>
+                  <ul>
+                    <li><a href="#" id="tuningE" (click)="findByTuning(1)">E Standard</a></li>
+                    <li><a href="#" id="tuningEb" (click)="findByTuning(2)">Eb Standard</a></li>
+                    <li><a href="#" id="tuningD" (click)="findByTuning(3)">D Standard</a></li>
+                    <li><a href="#" id="tuningCsharp" (click)="findByTuning(4)">C# Standard</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Bridge</a>
+                  <ul>
+                    <li><a href="#" id="bridgeTune" (click)="findByBridge('Tune-O-Matic')">Tune-O-Matic</a></li>
+                    <li><a href="#" id="bridgeFloyd" (click)="findByBridge('Floyd Rose')">Floyd Rose</a></li>
+                    <li><a href="#" id="bridge3s" (click)="findByBridge('3-Saddle')">3-Saddle</a></li>
+                  </ul>
+                </li>
+            </ul>
+            </li>
+        </ul>
+      </div>
+
+        <div class="search-container">
+            <form id="searchForm"> <!-- FIXME -->
+                <input type="text" id="searchKeyword" placeholder="Search by color..." name="search" [(ngModel)]="color">
+                <button type="submit" id="colorSearch" (click)="onColorSubmit(color)"><img src="assets/images/magnifying-icon.svg" /></button>
+            </form>
+          </div>
+    </div>
+    <ng-container *ngFor="let g of guitarList">
+      <app-guitar-detail [g]="g"(updateClicked)="editGuitar(g)" (deleteClicked)="delete(g)"></app-guitar-detail>
+    </ng-container>
+
+    </div>
+    <ng-container *ngIf="selected">
+
+    </ng-container>
+    <div id="setups-container">
+      <div class="setups-container-header"><img id="addNewSetup" src="assets/images/add-new-setup.png" /></div>
+    </div>
+    </div>
+
+
+
+
+</main>

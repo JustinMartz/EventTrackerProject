@@ -1,0 +1,62 @@
+<ng-container>
+  <div class="guitar-container" id='guitar{{g.id}}'>
+    <div class="image"><img [src]="'assets/images/' + g.imageUrl"></div>
+    <div class="text"  *ngIf="!updated">
+      <h1>{{g.make}} {{g.model}}</h1>
+      <h2>{{g.year}}</h2>
+      <h2>{{g.color}}</h2>
+      <h2>{{g.scaleLength}}" scale length</h2>
+      <h2>{{g.numberOfFrets}} frets</h2>
+      <h2>{{g.hasCase ? 'Has a case' : 'Does not have a case'}}</h2>
+      <h2>{{g.bridge}} bridge</h2>
+      <h2>Currently tuned to {{g.tuning.name}}</h2>
+    </div>
+    <ng-container *ngIf="updated">
+      <div class="text">
+        <form>
+          <h2 style="display: inline;">Make: </h2><input type="text" name="make" [(ngModel)]="g.make"/> <br>
+          <h2 style="display: inline;">Model: </h2><input type="text" name="model" [(ngModel)]="g.model"/> <br>
+          <h2 style="display: inline;">Year: </h2><input type="number" name="year" min="1900" max="2023" [(ngModel)]="g.year"/> <br>
+          <h2 style="display: inline;">Color: </h2><input type="text" name="color" [(ngModel)]="g.color"/> <br>
+          <h2 style="display: inline;">Scale length: </h2>
+            <select name="scaleLength" [(ngModel)]="g.scaleLength">
+              <option [ngValue]="24.75" [selected]="g.scaleLength === 24.75">24.75"</option>
+              <option [ngValue]="25.50" [selected]="g.scaleLength === 24.75">25.50"</option>
+            </select> <br>
+          <h2 style="display: inline;">Number of frets: </h2>
+            <input type="number" id="frets" name="numberOfFrets" min="19" max="27" [(ngModel)]="g.numberOfFrets" /> <br>
+          <h2 style="display: inline;">Has a case: </h2>
+            <select name="hasCase" [(ngModel)]="g.hasCase">
+              <option [ngValue]="true" [selected]="g.hasCase === true">Yes</option>
+              <option [ngValue]="false" [selected]="g.hasCase === false">No</option>
+            </select> <br>
+            <h2 style="display: inline;">Bridge type: </h2>
+              <select name="bridge" [(ngModel)]="g.bridge">
+                <option [ngValue]="'Tune-O-Matic'" [selected]="g.bridge === 'Tune-O-Matic'">Tune-O-Matic</option>
+                <option [ngValue]="'Floyd Rose'" [selected]="g.bridge === 'Floyd Rose'">Floyd Rose</option>
+                <option [ngValue]="'3-Saddle'" [selected]="g.bridge === '3-Saddle'">3-Saddle</option>
+              </select> <br>
+           <h2 style="display: inline;">Current tuning: </h2>
+              <select name="tuning" [(ngModel)]="g.tuning.id">
+                <option [ngValue]="1" [selected]="g.tuning.id === 1">E Standard</option>
+                <option [ngValue]="2" [selected]="g.tuning.id === 2">Eb Standard</option>
+                <option [ngValue]="3" [selected]="g.tuning.id === 3">D Standard</option>
+                <option [ngValue]="4" [selected]="g.tuning.id === 4">C# Standard</option>
+              </select> <br>
+        </form>
+      </div>
+    </ng-container>
+    <div class="icons">
+      <img src="assets/images/edit.png" (click)="onUpdate()"/>
+      <img src="assets/images/delete.png" (click)="onDelete()"/>
+    </div>
+    <ng-container *ngIf="updated">
+      <div class="icons">
+        <img src="assets/images/save.png" (click)="onSave()"/>
+        <img src="assets/images/cancel.png" (click)="updated=false;"/>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>
+
+

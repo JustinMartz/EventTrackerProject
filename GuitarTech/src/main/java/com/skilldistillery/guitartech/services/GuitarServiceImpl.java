@@ -38,8 +38,12 @@ public class GuitarServiceImpl implements GuitarService {
 
 	@Override
 	public List<Guitar> findAllByTuning(int tuningId) {
+		System.out.println("*** Getting passed tuningId: " + tuningId);
 		if (guitarRepo.existsById(tuningId)) {
+			System.out.println("*** Tuning " + tuningId + " exists!");
 			List<Guitar> guitars = guitarRepo.findByTuning_Id(tuningId);
+			for (Guitar g : guitars)
+				System.out.println("*** " + g.getMake() + " " + g.getModel());
 			return guitars;
 		}
 		return null;
@@ -67,11 +71,11 @@ public class GuitarServiceImpl implements GuitarService {
 		System.out.println("**********************************");
 		System.out.println(guitar);
 		if (guitar != null && !guitarRepo.existsById(guitar.getId())) {
-			if (guitar.getMake() == "" || guitar.getMake() == null) {
+			if (guitar.getMake().equals("") || guitar.getMake() == null) {
 				return null;
 			}
 			
-			if (guitar.getModel() == "" || guitar.getModel() == null) {
+			if (guitar.getModel().equals("") || guitar.getModel() == null) {
 				return null;
 			}
 			
@@ -79,6 +83,7 @@ public class GuitarServiceImpl implements GuitarService {
 				// FIXME use tuningRepo to pull existing tuning entity
 				Tuning tuning = new Tuning();
 				tuning.setId(1);
+				tuning.setName("E Standard");
 				guitar.setTuning(tuning);
 			}
 			
@@ -94,20 +99,47 @@ public class GuitarServiceImpl implements GuitarService {
 			Optional<Guitar> existingOpt = guitarRepo.findById(guitarId);
 			Guitar existing = existingOpt.get();
 			
-			if (guitar.getMake() == "" || guitar.getMake() == null) {
-				guitar.setMake(existing.getMake());
+			if (!guitar.getMake().equals("") || guitar.getMake() != null) {
+				existing.setMake(guitar.getMake());
 			}
 			
-			if (guitar.getModel() == "" || guitar.getMake() == null) {
-				guitar.setModel(existing.getModel());
+			if (!guitar.getModel().equals("") || guitar.getMake() != null) {
+				existing.setModel(guitar.getModel());
 			}
 			
-			if (guitar.getTuning() == null) {
-				guitar.setTuning(existing.getTuning());
+			if (guitar.getYear() != null) {
+				existing.setYear(guitar.getYear());
 			}
 			
-			guitar.setId(guitarId);
-			return guitarRepo.saveAndFlush(guitar);
+			if (!guitar.getColor().equals("") || guitar.getColor() != null) {
+				existing.setColor(guitar.getColor());
+			}
+			
+			if (guitar.getScaleLength() != null) {
+				existing.setScaleLength(guitar.getScaleLength());
+			}
+			
+			if (guitar.getNumberOfFrets() != null) {
+				existing.setNumberOfFrets(guitar.getNumberOfFrets());
+			}
+			
+			if (guitar.isHasCase() != null) {
+				existing.setHasCase(guitar.isHasCase());
+			}
+			
+			if (!guitar.getImageUrl().equals("") || guitar.getImageUrl() != null) {
+				existing.setImageUrl(guitar.getImageUrl());
+			}
+			
+			if (!guitar.getBridge().equals("") || guitar.getBridge() != null) {
+				existing.setBridge(guitar.getBridge());
+			}
+			
+			if (guitar.getTuning() != null) {
+				existing.setTuning(guitar.getTuning());
+			}
+			
+			return guitarRepo.saveAndFlush(existing);
 		}
 		return null;
 	}

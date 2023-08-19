@@ -28,18 +28,18 @@ public class Guitar {
 	
 	private String model;
 	
-	private int year;
+	private Integer year;
 	
 	private String color;
 	
 	@Column(name = "scale_length")
-	private double scaleLength;
+	private Double scaleLength;
 	
 	@Column(name = "number_of_frets")
-	private int numberOfFrets;
+	private Integer numberOfFrets;
 	
 	@Column(name = "has_case")
-	private boolean hasCase;
+	private Boolean hasCase;
 	
 	@Column(name = "image_url")
 	private String imageUrl;
@@ -81,11 +81,11 @@ public class Guitar {
 		this.model = model;
 	}
 
-	public int getYear() {
+	public Integer getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(Integer year) {
 		this.year = year;
 	}
 
@@ -97,27 +97,27 @@ public class Guitar {
 		this.color = color;
 	}
 
-	public double getScaleLength() {
+	public Double getScaleLength() {
 		return scaleLength;
 	}
 
-	public void setScaleLength(double scaleLength) {
+	public void setScaleLength(Double scaleLength) {
 		this.scaleLength = scaleLength;
 	}
 
-	public int getNumberOfFrets() {
+	public Integer getNumberOfFrets() {
 		return numberOfFrets;
 	}
 
-	public void setNumberOfFrets(int numberOfFrets) {
+	public void setNumberOfFrets(Integer numberOfFrets) {
 		this.numberOfFrets = numberOfFrets;
 	}
 
-	public boolean isHasCase() {
+	public Boolean isHasCase() {
 		return hasCase;
 	}
 
-	public void setHasCase(boolean hasCase) {
+	public void setHasCase(Boolean hasCase) {
 		this.hasCase = hasCase;
 	}
 

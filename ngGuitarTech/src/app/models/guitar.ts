@@ -13,7 +13,6 @@ export class Guitar {
   imageUrl: string;
   bridge: string;
   tuning: Tuning;
-  setups: Setup[] = [];
 
   constructor(
     id: number = 0,

@@ -6,11 +6,15 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
+import { UpdateGuitarComponent } from './components/update-guitar/update-guitar.component';
+import { GuitarDetailComponent } from './components/guitar-detail/guitar-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent
+    HomeComponent,
+    UpdateGuitarComponent,
+    GuitarDetailComponent
   ],
   imports: [
     BrowserModule,
