@@ -10,7 +10,7 @@
         <ul class="main-navigation">
             <li><a href="#">Filter by</a>
             <ul>
-            <li><a href="#" id="allGuitars" (click)="reload()">All guitars</a></li>
+            <li><a href="#" id="allGuitars" (click)="allGuitars()">All guitars</a></li>
                 <li><a href="#">Tuning</a>
                   <ul>
                     <li><a href="#" id="tuningE" (click)="findByTuning(1)">E Standard</a></li>
@@ -39,7 +39,7 @@
           </div>
     </div>
     <ng-container *ngFor="let g of guitarList">
-      <app-guitar-detail [g]="g"(updateClicked)="editGuitar(g)" (deleteClicked)="delete(g)"></app-guitar-detail>
+      <app-guitar-detail [g]="g" (updateClicked)="editGuitar(g)" (deleteClicked)="delete(g)" (cancelClicked)="reload()"></app-guitar-detail>
     </ng-container>
 
     <app-create-guitar *ngIf="creatingNewGuitar"></app-create-guitar>
@@ -49,6 +49,7 @@
 
     <div id="setups-container">
       <div class="setups-container-header"><img id="addNewSetup" src="assets/images/add-new-setup.png" /></div>
+        <app-setup-detail></app-setup-detail>
     </div>
     </div>
 

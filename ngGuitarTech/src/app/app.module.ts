@@ -9,6 +9,7 @@ import { HomeComponent } from './components/home/home.component';
 import { UpdateGuitarComponent } from './components/update-guitar/update-guitar.component';
 import { GuitarDetailComponent } from './components/guitar-detail/guitar-detail.component';
 import { CreateGuitarComponent } from './components/create-guitar/create-guitar.component';
+import { SetupDetailComponent } from './components/setup-detail/setup-detail.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { CreateGuitarComponent } from './components/create-guitar/create-guitar.
     HomeComponent,
     UpdateGuitarComponent,
     GuitarDetailComponent,
-    CreateGuitarComponent
+    CreateGuitarComponent,
+    SetupDetailComponent
   ],
   imports: [
     BrowserModule,

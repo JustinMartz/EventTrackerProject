@@ -12,16 +12,17 @@ export class GuitarDetailComponent {
 
   @Output() updateClicked: EventEmitter<void> = new EventEmitter();
   @Output() deleteClicked: EventEmitter<void> = new EventEmitter();
+  @Output() cancelClicked: EventEmitter<void> = new EventEmitter();
 
   selected: Guitar | null = null;
-  updated: boolean = false;
+  updatedGuitarExists: boolean = false;
 
   constructor(private guitarService: GuitarService) {}
 
   onUpdate() {
-    this.updateClicked.emit();
     this.selected = this.g;
-    this.updated = true;
+    this.updatedGuitarExists = true;
+    this.updateClicked.emit();
   }
 
   onDelete() {
@@ -39,5 +40,11 @@ export class GuitarDetailComponent {
         console.error(nojoy);
       },
     })
+  }
+
+  cancelUpdate() {
+    console.log('in cancelUpdate()' + this.selected);
+    this.updatedGuitarExists = false;
+    this.cancelClicked.emit();
   }
 }

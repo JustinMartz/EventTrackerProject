@@ -1,0 +1,5 @@
+<div class="setup-container" *ngFor="let s of setups" >
+  <div class="setup-date"><h2>{{s.dateOfSetup | date:'longDate'}}</h2></div>
+  <div class="setup-guitar"><h2>{{s.guitar.year}} {{s.guitar.make}} {{s.guitar.model}}</h2></div>
+  <div class="setup-tuning"><h2>{{s.tuning.name}}</h2></div>
+ </div>

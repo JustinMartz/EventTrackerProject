@@ -1,7 +1,7 @@
 <ng-container>
   <div class="guitar-container" id='guitar{{g.id}}'>
     <div class="image"><img [src]="'assets/images/' + g.imageUrl"></div>
-    <div class="text"  *ngIf="!updated">
+    <div class="text"  *ngIf="!updatedGuitarExists">
       <h1>{{g.make}} {{g.model}}</h1>
       <h2>{{g.year}}</h2>
       <h2>{{g.color}}</h2>
@@ -11,7 +11,7 @@
       <h2>{{g.bridge}} bridge</h2>
       <h2>Currently tuned to {{g.tuning.name}}</h2>
     </div>
-    <ng-container *ngIf="updated">
+    <ng-container *ngIf="updatedGuitarExists">
       <div class="text">
         <form>
           <h2 style="display: inline;">Make: </h2><input type="text" name="make" [(ngModel)]="g.make"/> <br>
@@ -46,14 +46,14 @@
         </form>
       </div>
     </ng-container>
-    <div class="icons">
+    <div class="icons" *ngIf="!updatedGuitarExists">
       <img src="assets/images/edit.png" (click)="onUpdate()"/>
       <img src="assets/images/delete.png" (click)="onDelete()"/>
     </div>
-    <ng-container *ngIf="updated">
+    <ng-container *ngIf="updatedGuitarExists">
       <div class="icons">
         <img src="assets/images/save.png" (click)="onSave()"/>
-        <img src="assets/images/cancel.png" (click)="updated=false;"/>
+        <img src="assets/images/cancel.png" (click)="cancelUpdate();"/>
       </div>
     </ng-container>
   </div>

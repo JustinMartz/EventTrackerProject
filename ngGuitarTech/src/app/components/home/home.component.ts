@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Guitar } from 'src/app/models/guitar';
+import { Setup } from 'src/app/models/setup';
 import { GuitarService } from 'src/app/services/guitar.service';
 
 @Component({
@@ -35,6 +36,17 @@ export class HomeComponent implements OnInit {
         console.error(failure);
       }
     })
+  }
+
+  allGuitars() {
+    this.reload();
+    let ultimateGuitarContainer: HTMLElement | null = document.getElementById('guitars-container');
+    ultimateGuitarContainer!.scrollTop = 0;
+
+    // ultimateGuitarContainer!.scrollTo({
+    //   top: ultimateGuitarContainer!.scrollHeight,
+    //    behavior: 'smooth'
+    // });
   }
 
   findByTuning(tuningId: number) {
