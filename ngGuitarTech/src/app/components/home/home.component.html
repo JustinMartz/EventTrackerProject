@@ -5,7 +5,7 @@
   <div class="content-container">
     <div id="guitars-container">
     <div class="guitars-container-header">
-      <img id="addNewGuitar" src="assets/images/add-new-guitar.png" />
+      <img id="addNewGuitar" src="assets/images/add-new-guitar.png" (click)="addNewGuitar()"/>
       <div class="guitar-filter-by">
         <ul class="main-navigation">
             <li><a href="#">Filter by</a>
@@ -42,10 +42,11 @@
       <app-guitar-detail [g]="g"(updateClicked)="editGuitar(g)" (deleteClicked)="delete(g)"></app-guitar-detail>
     </ng-container>
 
-    </div>
-    <ng-container *ngIf="selected">
+    <app-create-guitar *ngIf="creatingNewGuitar"></app-create-guitar>
 
-    </ng-container>
+    </div>
+
+
     <div id="setups-container">
       <div class="setups-container-header"><img id="addNewSetup" src="assets/images/add-new-setup.png" /></div>
     </div>

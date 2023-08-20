@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   selected: Guitar | null = null;
   newGuitar: Guitar = new Guitar();
   existingGuitar: Guitar | null = null;
+  creatingNewGuitar: boolean = false;
 
   constructor(
     private guitarService: GuitarService
@@ -114,6 +115,10 @@ export class HomeComponent implements OnInit {
 
   editGuitar(guitar: Guitar) {
     this.selected = guitar;
+  }
+
+  addNewGuitar() {
+    this.creatingNewGuitar = true;
   }
 
 }

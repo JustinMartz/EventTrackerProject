@@ -8,13 +8,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './components/home/home.component';
 import { UpdateGuitarComponent } from './components/update-guitar/update-guitar.component';
 import { GuitarDetailComponent } from './components/guitar-detail/guitar-detail.component';
+import { CreateGuitarComponent } from './components/create-guitar/create-guitar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     UpdateGuitarComponent,
-    GuitarDetailComponent
+    GuitarDetailComponent,
+    CreateGuitarComponent
   ],
   imports: [
     BrowserModule,

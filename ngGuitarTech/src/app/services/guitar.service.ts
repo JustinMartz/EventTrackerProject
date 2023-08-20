@@ -88,4 +88,18 @@ export class GuitarService {
       })
     );
   }
+
+  create(newGuitar: Guitar): Observable<Guitar> {
+    // aTodo.completed = false;
+    console.log('*** in create()');
+    console.log(newGuitar);
+    return this.http.post<Guitar>(this.url, newGuitar).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'GuitarService.create(): error creating Guitar: ' + err )
+        );
+      })
+    );
+  }
 }
