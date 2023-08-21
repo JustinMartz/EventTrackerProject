@@ -37,4 +37,15 @@ export class SetupService {
       })
     );
   }
+
+  delete(id: number) {
+    return this.http.delete(this.url + '/' + id).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'SetupService.delete(): error utterly destroying Setup: ' + err )
+        );
+      })
+    );
+  }
 }

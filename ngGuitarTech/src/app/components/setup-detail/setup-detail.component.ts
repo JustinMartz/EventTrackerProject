@@ -34,6 +34,21 @@ export class SetupDetailComponent implements OnInit {
     })
   }
 
+  onDelete(id: number) {
+    let result = confirm('Are you sure you want to delete this setup? This setup will be deleted forever.');
+    if (result) {
+      this.setupService.delete(id).subscribe({
+        next: (result) => {
+          this.reload();
+        },
+        error: (nojoy) => {
+          console.error('SetupComponent.delete(): error deleting Setup:');
+          console.error(nojoy);
+        },
+      });
+    }
+  }
+
   toggleAccordion(s: Setup) {
     if (s.isVisible) {
       s.isVisible = false;
