@@ -10,6 +10,7 @@
       <h2>{{g.hasCase ? 'Has a case' : 'Does not have a case'}}</h2>
       <h2>{{g.bridge}} bridge</h2>
       <h2>Currently tuned to {{g.tuning.name}}</h2>
+      <h2>Last setup: {{currentSetup.dateOfSetup | date:'longDate'}}</h2>
     </div>
     <ng-container *ngIf="updatedGuitarExists">
       <div class="text">

@@ -11,6 +11,7 @@ import { GuitarService } from 'src/app/services/guitar.service';
 export class HomeComponent implements OnInit {
 
   guitarList: Guitar[] = [];
+  guitarListForNavBar: Guitar[] = [];
   color: string = '';
   selected: Guitar | null = null;
   newGuitar: Guitar = new Guitar();
@@ -29,6 +30,7 @@ export class HomeComponent implements OnInit {
     this.guitarService.index().subscribe({
       next: (results) => {
         this.guitarList = results;
+        this.guitarListForNavBar = results;
         console.log(this.guitarList);
       },
       error: (failure) => {
@@ -42,11 +44,19 @@ export class HomeComponent implements OnInit {
     this.reload();
     let ultimateGuitarContainer: HTMLElement | null = document.getElementById('guitars-container');
     ultimateGuitarContainer!.scrollTop = 0;
+  }
 
-    // ultimateGuitarContainer!.scrollTo({
-    //   top: ultimateGuitarContainer!.scrollHeight,
-    //    behavior: 'smooth'
-    // });
+  showGuitar(id: number) {
+    this.guitarService.show(id).subscribe({
+      next: (result) => {
+        this.guitarList = [];
+        this.guitarList.push(result);
+      },
+      error: (failure) => {
+        console.error('HomeComponent.showGuitar(): error getting Guitar');
+        console.error(failure);
+      }
+    });
   }
 
   findByTuning(tuningId: number) {
@@ -131,6 +141,10 @@ export class HomeComponent implements OnInit {
 
   addNewGuitar() {
     this.creatingNewGuitar = true;
+  }
+
+  cancelNewGuitar() {
+    this.creatingNewGuitar = false;
   }
 
 }

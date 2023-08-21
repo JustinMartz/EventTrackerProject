@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Guitar } from 'src/app/models/guitar';
 import { GuitarService } from 'src/app/services/guitar.service';
 
@@ -8,6 +8,9 @@ import { GuitarService } from 'src/app/services/guitar.service';
   styleUrls: ['./create-guitar.component.css']
 })
 export class CreateGuitarComponent implements OnInit {
+
+  @Output() cancelClicked: EventEmitter<void> = new EventEmitter();
+
   g: Guitar = new Guitar();
 
   constructor(private guitarService: GuitarService) {}
@@ -32,5 +35,10 @@ export class CreateGuitarComponent implements OnInit {
         console.error(nojoy);
       }
     });
+  }
+
+  onCancel() {
+    // document.getElementById('guitars-container')!.lastElementChild!.remove();
+    this.cancelClicked.emit();
   }
 }

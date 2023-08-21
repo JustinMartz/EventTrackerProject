@@ -27,6 +27,19 @@ export class GuitarService {
     );
   }
 
+  show(id: number): Observable<Guitar> {
+    return this.http.get<Guitar>(this.url + '/' + id).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error(
+              'GuitarService.show(): error retrieving Guitar: ' + err
+          )
+        );
+      })
+    );
+  }
+
   findByTuning(id: number): Observable<Guitar[]> {
     return this.http.get<Guitar[]>(this.url + '/tuning/' + id).pipe(
       catchError((err: any) => {

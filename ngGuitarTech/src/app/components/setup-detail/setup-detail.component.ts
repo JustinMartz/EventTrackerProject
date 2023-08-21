@@ -10,6 +10,7 @@ import { SetupService } from 'src/app/services/setup.service';
 export class SetupDetailComponent implements OnInit {
 
   setups: Setup[] = [];
+  currentStyles: Record<string, string> = {};
 
   constructor(private setupService: SetupService) {}
 
@@ -21,6 +22,9 @@ export class SetupDetailComponent implements OnInit {
     this.setupService.index().subscribe({
       next: (results) => {
         this.setups = results;
+        for (let s of this.setups) {
+          s.isVisible = false;
+        }
         console.log(this.setups);
       },
       error: (failure) => {
@@ -28,5 +32,31 @@ export class SetupDetailComponent implements OnInit {
         console.error(failure);
       }
     })
+  }
+
+  toggleAccordion(s: Setup) {
+    if (s.isVisible) {
+      s.isVisible = false;
+    } else {
+      s.isVisible = true;
+      this.setCurrentStyles();
+    }
+  }
+
+  checkVisible(s: Setup) {
+    if (s.isVisible) {
+      return 'active setup-title';
+    } else {
+      return 'setup-title';
+    }
+  }
+
+  setCurrentStyles() {
+    // CSS styles: set per current state of component properties
+    this.currentStyles = {
+      // 'font-style':  this.canSave      ? 'italic' : 'normal',
+      // 'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
+      'max-height': '300px'
+    };
   }
 }

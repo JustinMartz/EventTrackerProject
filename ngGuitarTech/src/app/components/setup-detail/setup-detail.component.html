@@ -1,5 +1,15 @@
 <div class="setup-container" *ngFor="let s of setups" >
-  <div class="setup-date"><h2>{{s.dateOfSetup | date:'longDate'}}</h2></div>
-  <div class="setup-guitar"><h2>{{s.guitar.year}} {{s.guitar.make}} {{s.guitar.model}}</h2></div>
-  <div class="setup-tuning"><h2>{{s.tuning.name}}</h2></div>
+  <div [ngClass]="checkVisible(s)" (click)="toggleAccordion(s)">
+    <div class="setup-date"><h2>{{s.dateOfSetup | date:'longDate'}}</h2></div>
+    <div class="setup-guitar"><h2>{{s.guitar.year}} {{s.guitar.make}} {{s.guitar.model}}</h2></div>
+    <div class="setup-tuning"><h2>{{s.tuning.name}}</h2></div>
+  </div>
+  <div id="setup{{s.id}}" class="panel" [ngStyle]="currentStyles" *ngIf="s.isVisible">
+    <h2>String gauge: {{s.stringGauge}}</h2>
+    <h2>String brand: {{s.stringBrand}}</h2>
+    <h2>Treble action: {{s.actionTreble}}/64"</h2>
+    <h2>Bass action: {{s.actionBass}}/64"</h2>
+    <h2>Notes: {{s.notes}}</h2>
+  </div>
  </div>
+

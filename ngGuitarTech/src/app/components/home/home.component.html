@@ -10,8 +10,14 @@
         <ul class="main-navigation">
             <li><a href="#">Filter by</a>
             <ul>
-            <li><a href="#" id="allGuitars" (click)="allGuitars()">All guitars</a></li>
-                <li><a href="#">Tuning</a>
+              <li><a href="#" id="allGuitars" (click)="allGuitars()">All guitars</a></li>
+              <li><a href="#">Single guitar</a>
+                <ul>
+                  <li *ngFor="let g of guitarListForNavBar"><a href="#" (click)="showGuitar(g.id)" >{{g.year}} {{g.make}} {{g.model}}</a></li>
+                </ul>
+              </li>
+
+              <li><a href="#">Tuning</a>
                   <ul>
                     <li><a href="#" id="tuningE" (click)="findByTuning(1)">E Standard</a></li>
                     <li><a href="#" id="tuningEb" (click)="findByTuning(2)">Eb Standard</a></li>
@@ -42,7 +48,7 @@
       <app-guitar-detail [g]="g" (updateClicked)="editGuitar(g)" (deleteClicked)="delete(g)" (cancelClicked)="reload()"></app-guitar-detail>
     </ng-container>
 
-    <app-create-guitar *ngIf="creatingNewGuitar"></app-create-guitar>
+    <app-create-guitar *ngIf="creatingNewGuitar" (cancelClicked)="cancelNewGuitar()"></app-create-guitar>
 
     </div>
 

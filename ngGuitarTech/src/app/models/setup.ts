@@ -11,6 +11,7 @@ export class Setup {
   notes: string;
   guitar: Guitar;
   tuning: Tuning;
+  isVisible: boolean;
 
   constructor(
     id: number = 0,
@@ -21,7 +22,8 @@ export class Setup {
     actionBass: number = 0,
     notes: string = '',
     guitar: Guitar = new Guitar(),
-    tuning: Tuning = new Tuning()
+    tuning: Tuning = new Tuning(),
+    isVisible: boolean = false
   ) {
     this.id = id;
     this.stringGauge = stringGauge;
@@ -32,5 +34,6 @@ export class Setup {
     this.notes = notes;
     this.guitar = guitar;
     this.tuning = tuning;
+    this.isVisible = isVisible;
   }
 }

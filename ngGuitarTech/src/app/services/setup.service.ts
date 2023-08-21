@@ -25,5 +25,16 @@ export class SetupService {
     );
   }
 
-
+  getCurrentByGuitarId(id: number): Observable<Setup> {
+    return this.http.get<Setup>(this.url + '/current/' + id).pipe(
+      catchError((err: any) => {
+        console.log(err);
+        return throwError(
+          () => new Error(
+              'SetupService.getCurrentByGuitarId(): error retrieving Setup: ' + err
+          )
+        );
+      })
+    );
+  }
 }
