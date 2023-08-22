@@ -4,7 +4,9 @@ Homework by Justin Martz
 
 ## Description
 
-GuitarTech is a REST API serving the need of keeping track of your guitars' setups (maintenance records). Create a new setup for an existing guitar with attributes like tuning, string gauge, string brand, and setup date. Never forget which set of strings works best for your guitar ever again! 
+GuitarTech is an Angular frontend using a RESTful API serve the need of keeping track of your guitars and their setups (maintenance records). 
+
+Create a new setup for an existing guitar with attributes like tuning, string gauge, string brand, and setup date. Never forget which set of strings works best for your guitar ever again! 
 
 GuitarTech can also keep track of the guitars in your collection with functionality like searching by color, getting a guitar's most recent setup, and adding new guitars!
 
@@ -97,6 +99,9 @@ GuitarTech can also keep track of the guitars in your collection with functional
 - Spring Data JPA
 
 - MySQL / MySQL Workbench
+
+- Angular / TypeScript
+
 
 ## Lessons Learned
 

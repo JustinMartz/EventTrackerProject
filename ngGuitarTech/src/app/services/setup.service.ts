@@ -48,4 +48,15 @@ export class SetupService {
       })
     );
   }
+
+  update(updatedSetup: Setup): Observable<Setup> {
+    return this.http.put<Setup>(this.url + '/' + updatedSetup.id, updatedSetup).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'SetupService.update(): error updating Setup: ' + err )
+        );
+      })
+    );
+  }
 }

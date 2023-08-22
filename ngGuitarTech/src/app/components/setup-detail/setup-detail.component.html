@@ -5,12 +5,27 @@
     <div class="setup-tuning"><h2>{{s.tuning.name}}</h2></div>
   </div>
   <div id="setup{{s.id}}" class="panel" [ngStyle]="currentStyles" *ngIf="s.isVisible">
+    <ng-container *ngIf="!updatedSetupExists">
     <h2>String gauge: {{s.stringGauge}}</h2>
     <h2>String brand: {{s.stringBrand}}</h2>
     <h2>Treble action: {{s.actionTreble}}/64"</h2>
     <h2>Bass action: {{s.actionBass}}/64"</h2>
     <h2>Notes: {{s.notes}}</h2>
-    <div class="icons" style="float: right;"><img src="assets/images/edit.png"><img src="assets/images/delete.png" (click)="onDelete(s.id)">
-  </div>
+  </ng-container>
+  <ng-container *ngIf="updatedSetupExists">
+    <h2 style="display: inline;">String gauge: </h2><input type="text" name="stringGauge" [(ngModel)]="s.stringGauge">
+    <h2 style="display: inline;">String brand: </h2><input type="text" name="stringBrand" [(ngModel)]="s.stringBrand"> <br>
+    <h2 style="display: inline;">Date of setup: </h2><input type="date" name="dateOfSetup" [(ngModel)]="s.dateOfSetup"> <br>
+    <h2 style="display: inline;">Treble action height: </h2><input type="number" name="actionTreble" [(ngModel)]="s.actionTreble"> <br>
+    <h2 style="display: inline;">Bass action height: </h2><input type="number" name="actionBass" [(ngModel)]="s.actionBass">
+
+
+  </ng-container>
+    <div class="icons" style="float: right;" *ngIf="!updatedSetupExists">
+      <img src="assets/images/edit.png" (click)="editSetup(s)"><img src="assets/images/delete.png" (click)="onDelete(s.id)">
+    </div>
+    <div class="icons" style="float: right;" *ngIf="updatedSetupExists">
+      <img src="assets/images/save.png"><img src="assets/images/cancel.png" (click)="cancelEdit()">
+    </div>
  </div>
 

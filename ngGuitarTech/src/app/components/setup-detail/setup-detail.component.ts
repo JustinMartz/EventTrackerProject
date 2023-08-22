@@ -11,6 +11,9 @@ export class SetupDetailComponent implements OnInit {
 
   setups: Setup[] = [];
   currentStyles: Record<string, string> = {};
+  selected: Setup | null = null;
+  existingSetup: Setup | null = null;
+  updatedSetupExists: boolean = false;
 
   constructor(private setupService: SetupService) {}
 
@@ -73,5 +76,17 @@ export class SetupDetailComponent implements OnInit {
       // 'font-weight': !this.isUnchanged ? 'bold'   : 'normal',
       'max-height': '300px'
     };
+  }
+
+  editSetup(setup: Setup) {
+    this.selected = setup;
+    this.updatedSetupExists = true;
+  }
+
+  cancelEdit() {
+    this.selected = null;
+    this.updatedSetupExists = false;
+    console.log('in cancelEdit(): ' + this.updatedSetupExists);
+    // this.reload();
   }
 }
