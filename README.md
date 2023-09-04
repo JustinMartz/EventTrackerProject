@@ -1,10 +1,11 @@
 # EventTrackerProject
 ![](readme.png)
+
 Homework by Justin Martz
 
 ## Description
 
-GuitarTech is an Angular frontend using a RESTful API serve the need of keeping track of your guitars and their setups (maintenance records). 
+[GuitarTech](http://3.13.216.67:8080/GuitarTech) is an Angular frontend using a RESTful API serve the need of keeping track of your guitars and their setups (maintenance records). 
 
 Create a new setup for an existing guitar with attributes like tuning, string gauge, string brand, and setup date. Never forget which set of strings works best for your guitar ever again! 
 

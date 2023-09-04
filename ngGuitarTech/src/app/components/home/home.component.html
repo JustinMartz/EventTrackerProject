@@ -39,8 +39,8 @@
 
         <div class="search-container">
             <form id="searchForm"> <!-- FIXME -->
-                <input type="text" id="searchKeyword" placeholder="Search by color..." name="search" [(ngModel)]="color">
-                <button type="submit" id="colorSearch" (click)="onColorSubmit(color)"><img src="assets/images/magnifying-icon.svg" /></button>
+                <input size="15" type="text" id="searchKeyword" placeholder="Search by color..." name="search" [(ngModel)]="color">
+                <button type="submit" id="colorSearch" (click)="onColorSubmit(color)"><img class="filter-change" src="assets/images/magnifying-icon.svg" /></button>
             </form>
           </div>
     </div>

@@ -81,7 +81,6 @@ main {
 #setups-container {
 	border-right: 2px solid black;
 	border-bottom: 2px solid black;
-  border-top: 2px solid black;
 	height: 80vh;
 	width: 50%;
 	overflow: scroll;
@@ -125,24 +124,28 @@ main {
 }
 
 .search-container input[type=text] {
-	border: none;
 	font-size: 1rem;
 	padding: .5rem;
 	width: fit-content;
-	position: absolute;
 	top: 0;
 	bottom: 0;
 }
 
+#searchForm {
+	font-size: 1rem;
+  width: fit-content;
+	padding: .5rem;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
 .guitars-container-header .search-container button {
-	background: #ddd;
+	background: white;
 	border: none;
 	cursor: pointer;
 	position: absolute;
 	top: 0;
 	bottom: 0;
-	right: 0;
-	width: 4rem;
 }
 
 .guitars-container-header .search-container img {
@@ -150,8 +153,16 @@ main {
 }
 
  .search-container button:hover {
-  background: #ccc;
+  background: white;
+  fill: #ff0000;
 }
+
+.filter-change {
+  filter: brightness(0) saturate(100%) invert(92%) sepia(3%) saturate(1%) hue-rotate(155deg) brightness(90%) contrast(97%);
+}
+
+.filter-change:hover {
+  filter: brightness(0) saturate(100%) invert(56%) sepia(5%) saturate(26%) hue-rotate(357deg) brightness(88%) contrast(83%);}
 
 ul {
 	height: 100%;
@@ -285,18 +296,17 @@ ul:after {
 }
 
 .setups-container-header {
-  background-color: white;
   display: flex;
   border-bottom: 2px solid black;
 	height: 8vh;
 	width: 100%;
 	position: sticky;
   top: 0;
+  border-top: 2px solid black;
 }
 
 .setups-container-header img {
 	max-height: 100%;
-  width: fit-content;
 	display: block;
 	margin: auto;
 }
@@ -341,7 +351,7 @@ ul:after {
 }
 
 fieldset {
-	 margin: 0 0 5px 0;
+	margin: 0 0 5px 0;
 	display: inline;
 	padding: 0;
 	width: 100%;
