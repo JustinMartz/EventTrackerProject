@@ -106,4 +106,4 @@ GuitarTech can also keep track of the guitars in your collection with functional
 
 ## Lessons Learned
 
-I learned how create my own REST API from scratch using MySQL to model the diagram and forward engineer it to a database, and using Spring Data JPA to handle the REST endpoints.
+I learned how create my own REST API from scratch using MySQL to model the diagram and forward engineer it to a database, and using Spring Data JPA to handle the REST endpoints.# FinalProject
